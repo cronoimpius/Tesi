@@ -1,2 +1,7 @@
 *.run.xml
 *blx.bib
+*.aux
+*.out
+*.log
+*.toc
+*.lof
