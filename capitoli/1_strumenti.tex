@@ -1,0 +1,17 @@
+\chapter{Strumenti usati}
+\label{ch:Strumenti usati}
+
+Esistono vari framework per lo sviluppo di reti neurali, uno dei più usati è TensorFlow. 
+\\
+TensorFlow presenta modelli già creati e allenati, i cui pesi possono essere presi per sfruttare tale modello.
+Insieme all'uso di altre librerie come Keras l'implementazione di una rete neurale che gestisca i dati a disposizione 
+è molto semplificato.
+\\
+La rete di base usata per partire con l'analisi delle immagini è la MobileNetV2. Tale rete è una CNN che, prendendo come input delle 
+immagini.
+A tale rete, tuttavia, sono state apportate delle modifiche per via delle dimensioni dell'input e della tipologia di dato 
+che si vuole ottenere come previsione.
+\\
+Oltre a questa tipologia di rete si è sfruttata anche una U-Net, al fine di omogeneizzare tutte le immagini che vengono date come input della MobileNetV2.
+La U-Net usata è EfficientNet, con dei pesi preallenati per riconoscere immagini simili a quelle presenti nel dataset di riferimento.
+
