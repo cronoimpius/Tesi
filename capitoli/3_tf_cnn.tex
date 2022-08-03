@@ -29,4 +29,90 @@ Al fine di poter usare tali pesi per effettuare il training, si necessita dunque
 
 \section{Transfer Learning}
 
+Il transfer learning consente di sfruttare la rete già allenata a risolvere problemi diversi, ma comunque correlati con quello di interesse.
+Nel caso considerato tale tecnica permette di usare una rete allenata per prevedere l'appartenenza di una immagine ad una delle 1000 classi di ImageNet
+per creare una rete in grado di classificare le immagini del dataset in una unica classe.
+\\\\
+Per sfruttare la rete allenata, congeliamo lo stato dei layer di classificazione, al fine di non alterarli, e settiamo la rete come non allenabile.
+In tal modo si è ottenuto un nuovo modello basato sulla MobileNetV2.
+\\\\
+Ora si presenta un problema relativo alla classificazione. Per ovviare al fatto che tale operazione sarà fatta per una sola classe, si necessita dell'inserimento di altri layer alla fine del modello precedentemente ottenuto.
+\\\\
+Tali layers sono:
+\begin{itemize}
+    \item un GlobalAveragePooling2D()
+    \item due Dense() 
+\end{itemize}  
+
+Il primo layer serve per via del fatto che allo stato attuale la rete produce un output multidimensionale e, per ottenere previsioni formate da un singolo vettore 
+della dimensione prevista, usiamo tale layer, il quale genera previsioni basate sul blocco multidimensionale e facendone una media.
+\\\\
+Il primo Dense layer viene usato per generare l'output prodotto dalle immagini dei polmoni. Tale layer è formato da 100 neuroni ed ha come funzione di attivazione ReLu.
+\\\\
+Il secondo Dense layer svolge il lavoro di classificazione vero e proprio. Per via del fatto che si è scelto di usare una label binaria, ovvero classifichiamo su un'unica classe, tale 
+layer è composto da un solo neurone, ed ha come funzione di attivazione Sigmoid.
+\\\\
+Una volta creati i layers, per completare la fase di transfer learning, si deve compilare il modello finale, ottenuto aggiungendo i nuovi layers.
+\\\\
+Ora la rete è pronta per una prima fase di training. In tale fase sono stati usati i seguenti parametri per il training:
+\begin{itemize}
+    \item Loss function: Adam
+    \item Metrica: accuracy
+    \item Epoche 150
+    \item Batch size: 30
+\end{itemize}
+$\\$
+Per quanto concerne il valore del learning rate sono si è deciso di effettuare prove sia con $10^{-3}$ che con 
+$10^{-4}$.
+I risultati ottenuti dal training sono espressi nei seguenti grafici.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=12cm]{./10-3_150.png}
+    \label{ 10^{-3} }
+    \caption{Test effettuato usando come learning rate $10^{-3}$}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=12cm]{./10-4_150.png}
+    \label{10^{-4}}
+    \caption{Test effettuato usando come learning rate $10^{-4}$}
+\end{figure}
+\vspace{1000mm}
+
 \section{Fine Tuning}
+
+Per procedere con la fase di fine tuning, si deve rendere nuovamente trainabile il modello creato, 
+in modo tale che i pesi possano essere allenati considerando i nuovi layers.
+Così facendo si permette ai pesi di regolarsi sul dataset d'interesse, partendo da quello su cui sono stati inizialmente allenati.
+\\\\
+Essendo gli ultimi layers di una rete inutili in termini di classificazione, possiamo decidere di 
+congelarli, ovvero non considerarli durante il training, in modo da risparmiare risorse.
+Effettuato tale passaggio si può procedere con la compilazione del modello ottenuto e procedere con il training.
+\\\\
+I parametri relativi al training in questa fase sono:
+\begin{itemize}
+    \item Loss function: Adam
+    \item Metrica: accuracy
+    \item Epoche 30
+    \item Batch size: 30
+\end{itemize}
+$\\$
+Di seguito sono riportati i risultati ottenuti a seguito del transfer learning e fine tuning, sempre considerando 
+i due valori scelti per il learning rate.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=12cm]{./10-3_150_2.png}
+    \label{ 10^{-3} }
+    \caption{Test effettuato usando come learning rate $10^{-3}$}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=12cm]{./10-4_150_2.png}
+    \label{10^{-4}}
+    \caption{Test effettuato usando come learning rate $10^{-4}$}
+\end{figure}
+\vspace{1000mm}
