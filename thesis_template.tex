@@ -22,6 +22,15 @@
 \renewcommand{\tocetcmark}[1]{\markboth{#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
 
+% Stile dei titoli dei capitoli
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]
+{\Huge\bfseries}
+{\thechapter\hsp\textcolor{gray75}{|}\hsp}
+{0pt}
+{\Huge\bfseries}
+
 % Bibliografia
 \usepackage[
 backend=bibtex,

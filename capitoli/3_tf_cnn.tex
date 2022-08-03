@@ -1,0 +1,32 @@
+\chapter{Implementazione: CNN}
+\label{ch:CNN}
+
+Lo sviluppo della rete neurale convoluzionale, per effettuare previsioni partendo dalle immagini, è basata sulla rete 
+MobileNetV2. L'uso di tale rete come base consente di usare dei pesi preallenati in modo da rendere il processo di training sul dataset più efficiente.
+\\\\
+Tuttavia tale processo necessita di alcune fasi aggiuntive per fare in modo che la rete riesca a prendere i dati della dimensione esatta 
+e restituire delle previsioni nell'insieme desiderato.
+\\\\
+Tali operazioni sono:
+\begin{itemize}
+    \item Inserire la dimensione delle immagini nel layer di input
+    \item Effettuare fine tuning e transfer learning per poter usare i pesi preallenati 
+    \item Inserire dei layer finali per ottenere degli output significativi
+\end{itemize}
+
+La dimensione scelta delle immagini è (224x224), dunque la rete prende in ingresso degli array di dimensione 224x224x3 (dove quest'ultimo indica l'uso dei colori RGB).
+Per tale motivo il layer di input deve accettare tale dimensione.
+\\\\
+I pesi preallenati che si sono scelti sono pesi allenati su ImageNet. ImageNet è un dataset di immagini suddivise in 1000 classi. Il dataset su cui si deve svolgere il training, tuttavia, possiede 
+unicamente una classe, per via del fatto che abbiamo trasformato il valore della prognosi da una string ad un valore binario. 
+Per cui l'immagine può appartenere o meno a tale classe.
+\\\\
+Al fine di poter usare tali pesi per effettuare il training, si necessita dunque di ulteriori passaggi: 
+\begin{itemize}
+    \item Transfer Learning
+    \item Fine tuning
+\end{itemize}
+
+\section{Transfer Learning}
+
+\section{Fine Tuning}
