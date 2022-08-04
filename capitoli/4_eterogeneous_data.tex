@@ -1,2 +1,67 @@
 \chapter{Gestione dati eterogenei con MLP}
 \label{ch:MLP}
+\section{Gestione dei dati}
+I risultati ottenuti con la CNN possono essere migliorati o resi più attendibili con l'utilizzo
+di altre tipologie di dati. Questi sono le informazioni relative al paziente al momento dell'arrivo in 
+ospedale.
+\\\\
+Tali dati sono di vario tipo, quelli usati dal dataset considerato sono: 
+\begin{itemize}
+    \item Categorico, esprimono l'appartenenza ad una o più categorie
+    \item Booleano, esprimo se il paziente è affetto da una certa patologia o presenta alcuni 
+    \item Numerici
+\end{itemize}
+In questa fase è importante che tutti i dati siano presenti per ogni paziente. Per tale motivo si è dovuto 
+trovare un sottinsieme del dataset che presenti il maggior numero di dati. 
+\\\\
+Per fare ciò sono state eliminate le colonne che non avevano corrispondenze 
+tra i pazienti, ovvero erano vuote oppure presentavano dati solo per pochi pazienti.
+Al fine di ottenere un risultato migliore sono state eliminati anche i pazienti che non presentavano dati per 
+la maggiorparte delle colonne del dataset.
+\\\\
+Effettuata tale operazione, si è proceduto col creare un unico dataset ottenuto dall'unione 
+di training set e test set. Per fare ciò le colonne presenti tra i due devono essere le stesse.
+Per tale motivo si è giunti ad un dataset formato dalle seguenti colonne:
+\begin{itemize}
+    \item Ospedale, dato categorico che rappresenta l'ospedale che ha accolto il paziente tra A,B,C,D,E e F 
+    \item Età, dato numerico
+    \item Sesso, categorico binario, ovvero maschio o femmina
+    \item Tosse, binario
+    \item Difficoltà respiratorie
+    \item Numero di cellule bianche, dato numerico che indica la percentuale di globuli bianchi nel sangue
+    \item Pressione sanguigna alta,  binario
+    \item Diabete, binario
+    \item Demenza, binario 
+    \item BPCO (Broncopneumopatia cronica ostruttiva), binario 
+    \item Cancro, binario 
+    \item Malattia renale cronica, binario
+\end{itemize}
+Tali dati sono presenti per 946 pazienti del training set e 472 del test set, per cui abbiamo un dataset di 1218 pazienti.
+Questo dataset sarà poi suddiviso in training, validation e test set, per effettuare l'allenamento della rete e per verificare la capacità di effettuare previsioni.
+\\\\
+Ora che si presenta il dataset completo, si procede col trasformare tutti i dati nello stesso formato, ovvero in valori binari.
+Partendo dai dati categorici, si procede usando la codifica one-hot. Tale procedura prevede che le categorie relative al dato vengano 
+trasformate in una rappresentazione binaria, in cui ogni categoria è rappresentata da una serie di zeri ed un unico uno presente nella categoria
+codificata.
+Per quanto riguarda il sesso, essendo una categoria binaria, si necessida di soli due bit per rappresentarla, ovvero
+una sarà rappresentata da 10 e l'altra da 01.
+L'ospedale è un dato che prevede sei categorie, per cui queste saranno rappresentate da sei bit. Ogni rappresentazione
+presenterà cinque zeri ed un unico uno (es. 001000).
+\\\\
+A livello pratico tali trasfromazioni sono state implementate usando la libreria scikit-learn, in particolare le funzioni
+MultiLabelBinarizer(), per l'ospedale, e LabelBinarizer() per il sesso. In tal modo si riesce a trasformare le categorie in array di 
+bit, ovvero valori compresi in [0,1].
+\\\\
+Per gestire i valori numerici si sfrutta un'altra funzione di scikit-learn, ovvero MinMaxScaler().
+Tale funzione scala i valori dati in input in un range specificato, nel caso in considerazione [0,1].
+La trasformazione avviene mediante:
+\begin{equation*}
+    \begin{array}{l}
+        X_{std} = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0)) \\
+        X_{scaled} = X_{std} * (max - min) + min
+    \end{array}
+\end{equation*}
+\\\\
+I valori binari infine sono rimasti invariati.
+
+\section{Struttura della rete}
