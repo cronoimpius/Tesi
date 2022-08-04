@@ -1,4 +1,4 @@
-\chapter{Gestione dati eterogenei con MLP}
+\chapter{Gestione dati eterogenei}
 \label{ch:MLP}
 \section{Gestione dei dati}
 I risultati ottenuti con la CNN possono essere migliorati o resi più attendibili con l'utilizzo
@@ -43,7 +43,7 @@ Ora che si presenta il dataset completo, si procede col trasformare tutti i dati
 Partendo dai dati categorici, si procede usando la codifica one-hot. Tale procedura prevede che le categorie relative al dato vengano 
 trasformate in una rappresentazione binaria, in cui ogni categoria è rappresentata da una serie di zeri ed un unico uno presente nella categoria
 codificata.
-Per quanto riguarda il sesso, essendo una categoria binaria, si necessida di soli due bit per rappresentarla, ovvero
+Per quanto riguarda il sesso, essendo una categoria binaria, si necessita di soli due bit per rappresentarla, ovvero
 una sarà rappresentata da 10 e l'altra da 01.
 L'ospedale è un dato che prevede sei categorie, per cui queste saranno rappresentate da sei bit. Ogni rappresentazione
 presenterà cinque zeri ed un unico uno (es. 001000).
@@ -62,6 +62,39 @@ La trasformazione avviene mediante:
     \end{array}
 \end{equation*}
 \\\\
-I valori binari infine sono rimasti invariati.
+I valori binari infine sono rimasti invariati, poichè esprimono il valore nel range desiderato.
 
-\section{Struttura della rete}
+\section{Struttura MLP}
+
+Avendo ora convertito i dati del dataset in modo da essere in [0,1], si può iniziare a costruire la rete che deve fare previsioni 
+prendendo come input tali dati. 
+È importante notare che una volta effettuata la codifica one-hot della colonna relativa all'ospedale, si ottiene un vettore di dimensione 6 (una per ogni categoria) al 
+posto dell'unica colonna che rappresenta il dato. Per tale motivo la dimensione dell'input della rete non è 
+più 12 (in base al numero di colonne presenti inizialmente), ma 17.
+\\\\
+La rete dunque sarà formata da due layer:
+\begin{itemize}
+    \item un Dense() layer formato da 30 neuroni
+    \item un Dense() layer formato da 5 neuroni
+\end{itemize}
+Il primo layer è colui che si occupa di ricevere anche gli input, per cui la dimensione degli input dovrà essere pari a 17.
+Il secondo layer, invece, è formato da soli 5 layer e si occupa di effettuare una prima classificazione.
+Entrambi i layer presentano come funzione di attivazione ReLu.
+\\\\
+Con tale rete, si riesce dunque ad effettuare il training relativo all'uso dei metadati.
+
+\section{Creazione rete composta}
+Per poter usare contemporaneamente le due reti neurali create, ovvero la CNN e la MLP, si necessita di 
+un ulteriore passaggio.
+Lo scopo di tale passaggio è avere una rete che accetti come input sia immagini che i metadati relativi, al fine
+di ottenere una previsione più affidabile, poiché basata sull'uso di più dati.
+\\\\
+Per gestire gli output delle due reti questi vengono concatenati, in modo da ottenere un unico array di output.
+Al fine di effettuare le predizioni su tale output si aggiunge, alla fine della rete, un ulteriore 
+Dense layer, formato da un unico neurone, con funzione di attivazione Sigmoid e che prende un input della 
+dimensione della combinazione degli output delle due reti. 
+\\\\
+Si può, infine, creare la rete che prende in input la combinazione degli input della rete, mentre l'output sarà determinato
+dal nuovo layer inserito.
+*immagine rete completa*
+Ora si può dunque procedere con la compilazione della rete e con il training.  

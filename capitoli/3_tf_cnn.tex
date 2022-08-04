@@ -116,4 +116,14 @@ i due valori scelti per il learning rate.
     \caption{Test effettuato usando come learning rate $10^{-4}$}
 \end{figure}
 \vspace{1000mm}
-\section{Data Augmentation}
+\section{Overfit e Data Augmentation}
+Dai risultati ottenuti risulta evidente la presenza di overfitting nella rete.
+Tale problema si è potuto notare per via del fatto che, anche a seguito del fine tuning, la validation accuracy non tende 
+ad aumentare.
+\\\\
+L'overfit può essere causato dal fatto che la rete si abitui agli input del training set, o al 
+fatto che questi siano molto simili tra di loro e risponda in maniera casuale a nuovi dati. Per tale motivo si è scelto di usare la data augmentation come tecnica risolutiva.
+La data augmentation consiste nel prendere le immagini del dataset, effettuare delle modifiche ad esse (come rotazioni), per 
+creare una immagine nuova, in modo da introdurre diversità all'interno del dataset. 
+\\\\
+Per implementare tale tecnica si è optato per l'uso del ImageDataGenerator()
