@@ -14,4 +14,122 @@ Tali metadati presentano descrivono varie informazioni relative al paziente, per
 due sole categoria, dati che possono essere considerati come booleani e dati interi, come ad esempio l'età.
 \\\\
 \section{Immagini}
+Dando uno sguardo alla composizione del dataset si può notare come le immagini risultano avere dimensione diversa. Per tale motivo 
+risulta utile eseguire un preprocessing delle immagini, in cui si effetuano vari passaggi:
+\begin{itemize}
+    \item Riconoscere i polmoni e crearne una mascehera
+    \item Ricavare una bounding-box che contenga i polmoni
+    \item Ritagliare la bounding-box contenente i polmoni, in modo che abbiano tutte la stessa dimensione
+\end{itemize}
+
+È importante sottolineare che nell'eseguire tali passaggi si necessita di evitare di distorcere l'immagine, per tale 
+motivo si faranno considerazioni sull'aspect ratio dell'immagine. 
+\\\\
+Tali passaggi serviranno per ottenere immagini omogenee, in grado di consentire alla rete di identificare i polmoni ed avranno 
+una dimensione pari a 224 x 224
+\section{U-Net}
+Al fine di effettuare il riconoscimento dei polmoni allinterno dell'immagine, si sfrutta una U-Net.
+Una U-Net è una rete convoluzionale sviluppata per eseguire la segmentazione dell'immagine. Il processo di segmentazione consiste nell'assegnare ad 
+ogni gruppo di pixel selezionato una categoria. Ad esempio si potrebbe avere un insieme di pixel del'immagine che identificano il contorno dei polmoni.
+\\\\
+Lo scopo della U-Net è dunque quello di prendere in input l'immagine e creare una maschera che raffiguri i polmoni.
+La maschera è un'immagine formata da pixel con valore in [0,1] e mira a creare un'immagine raffigurante la distinzione tra cosa rappresenta 
+i polmoni e cosa rappresenta lo sfondo.
+L'utilià della maschera è quella di consentirci di trovare con maggior facilità la bounding box.
+\\\\
+La rete usata per la segmentazione è EfficientNet. Tale rete prende un input di dimensione predefinita e restituisce un'immagine della stessa
+dimensione, rappresentante la maschera. Nel caso considerato, inoltre si è deciso di usare come funzione di attivazione Sigmoid e di sfruttare 
+i pesi preallenati su ImageNet, per avere maggior precisione.
+\\\\
+Essendo le immagini di dimensione diversa, prima di darle in input alla rete viene effettuato un ridimensionamento alle dimensioni accettate dalla rete. 
+Tale passaggio viene effettuato mantenendo l'aspect ratio dell'immagine e inserendo padding nero per evitare distorsione.
+L'aspect ratio rappresenta il rapporto tra le dimensioni dell'immagine, per evitare distorsione della stessa, si deve conseravre tale rapporto.
+Nel caso in cui l'immagine non soddisfi i requisiti delle nuove dimensioni si procede con l'aggiunta di padding di colore nero, ovvero si inseriscono i pixel necessari 
+all'immagine per raggiungere la dimensione necessaria usando un colore non influente. 
+\\\\
+La rete performa molto bene con immagini di dimensioni piccole, tuttavia si è potuto notare, a seguito di esperimenti, che nel caso considerato, la rete 
+performa meglio con immagini, in input, di dimensione 256 x 256 rispetto a quelle di dimensione 224 x 224.
+Per tale motivo, a seguito della segmentazione dovrà essere effettuato un ridimensionamento dell'immagine.
+
+\section{Bounding-box}
+Ottenute così le maschere retive alle immagini, queste sono alla base della costruzione delle bounding-box.
+La bounding-box rappresenta il riquadro di dimensione minima, contenente i polmoni.
+Per trovare tale riquadro si usano i punti estremi delle maschere: si cercano il punto più alto, più basso, il più a destra e l'estremo a sinistra.
+Tali punti rappresentano le coordinate di una box, la quale conterrà per certo i polmoni.
+\\\\
+Avendo ora le bounding box, l'ultima cosa da fare è ritagliare le dalle immagini originali le bounding-box e ridimensionarle a 224 x 224.
+È necessario in questi passaggi di ridimensionamento mantenere presente che l'aspect-ratio deve essere conservato, per cui si effettua nuovamente padding ove necessario.
+\\\\
+Alla fine di tale procedimento si sono ottenute delle immagini raffiguranti i polmoni e della dimensione desiderata.
+
 \section{Metadati}
+Per quanto riguarda i metadati la situazione è meno complessa, poichè gestita mediante file csv.
+Innanzitutto ciò che si vuole ottenere è un insieme di dati che sia completamente pieno, ovvero presenti corrispondenze 
+per tutte le righe e colonne del dataset.
+Dunque si cerca di ridurre il dataset di partenza nel più grande sottinsieme che contenga tutte le corrispondenze.
+Tale omogeneità deve essere presente sia nel dataset di training che in quello di test. Oltre a ciò, alla fine, si cerceranno le collonne comuni 
+ai due dataset, scartando le altre. In tal modo si possono unire i due dataset così da formarne uno solo.
+\\\\ 
+Per iniziare si eliminano le colonne che non presentano alcun dato, o che presentano dati solo per un numero molto ristretto di paziente, per :
+\begin{itemize}
+    \item nel dataset di training sono state scartate le colonne
+    \begin{itemize}
+        \item giorni di febbre, 
+        \item fibrina, 
+        \item glucosio, 
+        \item PCT, 
+        \item LDH, 
+        \item INR, 
+        \item D\_dimer, 
+        \item percentuale di ossigeno, 
+        \item PaO2, 
+        \item SaO2, 
+        \item PaCO2, 
+        \item pH, 
+        \item cardiopatia ischemica,
+        \item insufficienza respiratori,
+        \item obesità, 
+        \item positività all'ammssione, 
+        \item temperatura corporea, 
+        \item RBC, 
+        \item CRP.
+    \end{itemize} 
+    \item nel dataset di test sono state scartate le colonne
+    \begin{itemize}
+        \item giorni febbre, 
+        \item fibrina, 
+        \item LDH,
+        \item PaO2,
+        \item PaCo2, 
+        \item pH, 
+        \item PCT, 
+        \item INR,
+        \item D\_dimer, 
+        \item SaO2, 
+        \item tempertaure corporea, 
+        \item CRP.
+    \end{itemize} 
+\end{itemize} 
+
+Eliminate le colonne in eccesso, si procede con l'eliminazione dei paziente che non presentano tutti i dati.
+A seguito di tale operazione le righe, ovvero i pazienti, che sono presenti nel dataset di train sono 946, mentre quelle del dataset di test
+472.
+Le colonne in comune tra i due dataset sono:
+\begin{itemize}
+    \item Ospedale, 
+    \item Età, 
+    \item Sesso,
+    \item Tosse, 
+    \item Difficoltà respiratorie
+    \item Numero di cellule bianche,
+    \item Pressione sanguigna alta,  
+    \item Diabete,
+    \item Demenza,  
+    \item BPCO (Broncopneumopatia cronica ostruttiva),
+    \item Cancro, 
+    \item Malattia renale cronica
+\end{itemize}
+
+In tal modo si è ottenuto un dataset che contiene 12 colonne significativa (sopra elencate) contenenti dati per 
+1418 pazienti.
+

@@ -126,4 +126,18 @@ fatto che questi siano molto simili tra di loro e risponda in maniera casuale a 
 La data augmentation consiste nel prendere le immagini del dataset, effettuare delle modifiche ad esse (come rotazioni), per 
 creare una immagine nuova, in modo da introdurre diversità all'interno del dataset. 
 \\\\
-Per implementare tale tecnica si è optato per l'uso del ImageDataGenerator()
+Per implementare tale tecnica si è optato per l'uso del ImageDataGenerator(). L'adozione di tale funzionalità presente in 
+TensorFlow è dovuta al fatto che consente di creare immagini partendo dal dataset iniziale, applicando trasformazioni casualmente, scegliendo tra 
+quelle selezionate.
+\\\\
+Le trasfromazioni che sono state scelte, in base alla possibilità che la rete consideri anche le nuove immagini come 
+valide, sono la rotazione verticale ed orizontale, specificando anche il range di angolo in cui effettuare tale rotazione.
+La scelta di queste trasformazioni è stata validata anche osservando le immagini prodotte e riflettendo sul fatto che fossero 
+sensate come input della rete.
+*immagini aumentate vs immagini normali*
+\\\\
+È importante sottolineare che l'augmentation viene effettuata unicamente sul training set.
+\\\\
+Per verificare se la data augmentation ha avuto effetto si procede con dei training della rete.
+Tali training sono stati effettuati mantenendo gli stessi parametri precedentemente usati.
+*immagini training*
