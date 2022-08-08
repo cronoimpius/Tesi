@@ -74,45 +74,41 @@ ai due dataset, scartando le altre. In tal modo si possono unire i due dataset c
 \\\\ 
 Per iniziare si eliminano le colonne che non presentano alcun dato, o che presentano dati solo per un numero molto ristretto di paziente, per :
 \begin{itemize}
-    \item nel dataset di training sono state scartate le colonne
-    \begin{itemize}
-        \item giorni di febbre, 
-        \item fibrina, 
-        \item glucosio, 
-        \item PCT, 
-        \item LDH, 
-        \item INR, 
-        \item D\_dimer, 
-        \item percentuale di ossigeno, 
-        \item PaO2, 
-        \item SaO2, 
-        \item PaCO2, 
-        \item pH, 
-        \item cardiopatia ischemica,
-        \item insufficienza respiratori,
-        \item obesità, 
-        \item positività all'ammssione, 
-        \item temperatura corporea, 
-        \item RBC, 
-        \item CRP.
-    \end{itemize} 
-    \item nel dataset di test sono state scartate le colonne
-    \begin{itemize}
-        \item giorni febbre, 
-        \item fibrina, 
-        \item LDH,
-        \item PaO2,
-        \item PaCo2, 
-        \item pH, 
-        \item PCT, 
-        \item INR,
-        \item D\_dimer, 
-        \item SaO2, 
-        \item tempertaure corporea, 
-        \item CRP.
-    \end{itemize} 
+    \item nel dataset di training sono state scartate le colonne:
+        giorni di febbre, 
+        fibrina, 
+        glucosio, 
+        PCT, 
+        LDH, 
+        INR, 
+        D\_dimer, 
+        percentuale di ossigeno, 
+        PaO2, 
+        SaO2, 
+        PaCO2, 
+        pH, 
+        cardiopatia ischemica,
+        insufficienza respiratori,
+        obesità, 
+        positività all'ammssione, 
+        temperatura corporea, 
+        RBC, 
+        CRP.
+    \item nel dataset di test sono state scartate le colonne:
+    giorni febbre, 
+    fibrina, 
+    LDH,
+    PaO2,
+    PaCo2, 
+    pH, 
+    PCT, 
+    INR,
+    D\_dimer, 
+    SaO2, 
+    tempertaure corporea, 
+    CRP. 
 \end{itemize} 
-
+$\\\\$
 Eliminate le colonne in eccesso, si procede con l'eliminazione dei paziente che non presentano tutti i dati.
 A seguito di tale operazione le righe, ovvero i pazienti, che sono presenti nel dataset di train sono 946, mentre quelle del dataset di test
 472.
@@ -131,7 +127,7 @@ Le colonne in comune tra i due dataset sono:
     \item Cancro, 
     \item Malattia renale cronica
 \end{itemize}
-
+$\\\\$
 In tal modo si è ottenuto un dataset che contiene 12 colonne significativa (sopra elencate) contenenti dati per 
 1418 pazienti.
 

@@ -39,7 +39,7 @@ Per tale motivo si è giunti ad un dataset formato dalle seguenti colonne:
 Tali dati sono presenti per 946 pazienti del training set e 472 del test set, per cui abbiamo un dataset di 1218 pazienti.
 Questo dataset sarà poi suddiviso in training, validation e test set, per effettuare l'allenamento della rete e per verificare la capacità di effettuare previsioni.
 \\\\
-Ora che si presenta il dataset completo, si procede col trasformare tutti i dati nello stesso formato, ovvero in valori binari.
+Ora che si presenta il dataset completo, si procede col trasformare tutti i dati nello stesso formato, ovvero in valori binari \cite{ar}.
 Partendo dai dati categorici, si procede usando la codifica one-hot. Tale procedura prevede che le categorie relative al dato vengano 
 trasformate in una rappresentazione binaria, in cui ogni categoria è rappresentata da una serie di zeri ed un unico uno presente nella categoria
 codificata.
@@ -52,7 +52,7 @@ A livello pratico tali trasfromazioni sono state implementate usando la libreria
 MultiLabelBinarizer(), per l'ospedale, e LabelBinarizer() per il sesso. In tal modo si riesce a trasformare le categorie in array di 
 bit, ovvero valori compresi in [0,1].
 \\\\
-Per gestire i valori numerici si sfrutta un'altra funzione di scikit-learn, ovvero MinMaxScaler() \cite{ar}.
+Per gestire i valori numerici si sfrutta un'altra funzione di scikit-learn, ovvero MinMaxScaler().
 Tale funzione scala i valori dati in input in un range specificato, nel caso in considerazione [0,1].
 La trasformazione avviene mediante:
 \begin{equation*}
