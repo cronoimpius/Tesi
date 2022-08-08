@@ -1,0 +1,90 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{tsf}{online}{}
+    \name{author}{1}{}{%
+      {{hash=g}{%
+         family={google},
+         familyi={g\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{g1}
+    \strng{fullhash}{g1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{TensorFlow}
+    \verb{url}
+    \verb https://www.tensorflow.org/
+    \endverb
+    \field{year}{2022}
+  \endentry
+
+  \entry{ai}{online}{}
+    \field{labeltitlesource}{title}
+    \field{title}{ai4covid}
+    \verb{url}
+    \verb https://ai4covid-hackathon.it/
+    \endverb
+    \field{year}{2022}
+  \endentry
+
+  \entry{cch}{online}{}
+    \name{author}{2}{}{%
+      {{hash=V}{%
+         family={{Valerio Guarrasi}},
+         familyi={V\bibinitperiod},
+      }}%
+      {{hash=P}{%
+         family={{Paolo Soda}},
+         familyi={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{VP1}
+    \strng{fullhash}{VP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Covid CXR Hackathon}
+    \verb{url}
+    \verb https://github.com/cosbidev/COVIDCXRChallenge
+    \endverb
+    \field{year}{2022}
+  \endentry
+
+  \entry{ar}{article}{}
+    \name{author}{1}{}{%
+      {{hash=RA}{%
+         family={Rosebrock},
+         familyi={R\bibinitperiod},
+         given={Adrian},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RA1}
+    \strng{fullhash}{RA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Keras: Multiple Inputs and Mixed Data}
+    \verb{url}
+    \verb https://pyimagesearch.com/2019/02/04/keras-multiple-inputs-and-mixed-
+    \verb data/
+    \endverb
+    \field{year}{2021}
+  \endentry
+\enddatalist
+\endinput
