@@ -1,8 +1,6 @@
 \chapter{Dataset}
 \label{ch:Dataset}
 \section{Composizione}
-*inserire link all'hackaton e immagini dataset*
-\\\\
 Il dataset usato per effettuare lo studio è stato preso da un hackaton \cite{ai} riguardante la creazione di una rete neurale in grado di apprendere 
 da immagini relative a radiografie di pazienti affetti da covid in modo da predirre la gravità della prognosi.
 \\\\
@@ -14,10 +12,42 @@ si è dovuto effettuare un passaggio preliminare in modo da rendere le immagini 
 Oltre alle immagini sono presenti anche un insieme di metadati riguardanti lo stato in cui il paziente è entrato all'ospedale e l'anamnesi dello stesso.
 Tali metadati presentano descrivono varie informazioni relative al paziente, per tale motivo sono rappresentate anche in modo diverso: esistono dati di tipo categorico, sia con più categorie che con
 due sole categoria, dati che possono essere considerati come booleani e dati interi, come ad esempio l'età.
-\\\\
+\clearpage
 \section{Immagini}
-Dando uno sguardo alla composizione del dataset si può notare come le immagini risultano avere dimensione diversa. Per tale motivo 
-risulta utile eseguire un preprocessing delle immagini, in cui si effetuano vari passaggi:
+Dando uno sguardo alla composizione del dataset si può notare come le immagini risultano avere dimensione diversa.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{P_1_10.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 1}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{P_2_27.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 2}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{P_2_68.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 3}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{P_163.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 4}
+    \end{subfigure}
+    \caption{Campione del dataset per evidenziare le differenze tra le immagini}
+    \label{Campione}
+\end{figure}
+*nota immagini scure*
+$\\\\$
+Per tale motivo risulta utile eseguire un preprocessing delle immagini, in cui si effetuano vari passaggi:
 \begin{itemize}
     \item Riconoscere i polmoni e crearne una mascehera
     \item Ricavare una bounding-box che contenga i polmoni
@@ -63,7 +93,29 @@ Avendo ora le bounding box, l'ultima cosa da fare è ritagliare le dalle immagin
 È necessario in questi passaggi di ridimensionamento mantenere presente che l'aspect-ratio deve essere conservato, per cui si effettua nuovamente padding ove necessario.
 \\\\
 Alla fine di tale procedimento si sono ottenute delle immagini raffiguranti i polmoni e della dimensione desiderata.
-
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{P_1_11_or.png}  
+        \caption{Immagine originale}
+        %\label{SUBFIGURE LABEL 1}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{P_1_11_mask.png}  
+        \caption{Maschera creata dalla U-Net}
+        %\label{SUBFIGURE LABEL 2}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{P_1_11.png}  
+        \caption{Immagine finale}
+        %\label{SUBFIGURE LABEL 3}
+    \end{subfigure}
+    \caption{Effetti dei vari passaggi sulle immagini del dataset}
+    \label{Transformation}
+\end{figure}
 \section{Metadati}
 Per quanto riguarda i metadati la situazione è meno complessa, poichè gestita mediante file csv.
 Innanzitutto ciò che si vuole ottenere è un insieme di dati che sia completamente pieno, ovvero presenti corrispondenze 
