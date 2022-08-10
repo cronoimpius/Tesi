@@ -43,8 +43,7 @@ Ora che si presenta il dataset completo, si procede col trasformare tutti i dati
 Partendo dai dati categorici, si procede usando la codifica one-hot. Tale procedura prevede che le categorie relative al dato vengano 
 trasformate in una rappresentazione binaria, in cui ogni categoria è rappresentata da una serie di zeri ed un unico uno presente nella categoria
 codificata.
-Per quanto riguarda il sesso, essendo una categoria binaria, si necessita di soli due bit per rappresentarla, ovvero
-una sarà rappresentata da 10 e l'altra da 01.
+Per quanto riguarda il sesso, essendo una categoria binaria, si può usare un valore binario, per cui un sesso sarà rappresentato da 0 e l'altro da 1.
 L'ospedale è un dato che prevede sei categorie, per cui queste saranno rappresentate da sei bit. Ogni rappresentazione
 presenterà cinque zeri ed un unico uno (es. 001000).
 \\\\
@@ -57,7 +56,7 @@ Tale funzione scala i valori dati in input in un range specificato, nel caso in 
 La trasformazione avviene mediante:
 \begin{equation*}
     \begin{array}{l}
-        X_{std} = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0)) \\
+        X_{std} = \dfrac{(X - X.min(axis=0))}  {(X.max(axis=0) - X.min(axis=0))} \\\\
         X_{scaled} = X_{std} * (max - min) + min
     \end{array}
 \end{equation*}

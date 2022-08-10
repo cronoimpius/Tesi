@@ -118,7 +118,55 @@ Alla fine di tale procedimento si sono ottenute delle immagini raffiguranti i po
 \end{figure}
 \section{Metadati}
 Per quanto riguarda i metadati la situazione è meno complessa, poichè gestita mediante file csv.
-Innanzitutto ciò che si vuole ottenere è un insieme di dati che sia completamente pieno, ovvero presenti corrispondenze 
+Il dataset in questo caso è sempre diviso in training e test set, ma è composto da un insieme di righe e colonne:
+le righe rappresentano i vari pazienti, mentre le colonne rappresentano vari dati relativi al paziente.
+\\\\Le colonne iniziali di tali dataset sono le stesse e sono: 
+    ospedale,
+    età,
+    sesso, 
+    positività all'ammssione, 
+    temperatura corporea,
+    giorni di febbre, 
+    tosse,
+    difficoltà respiratorie,
+    WBC,
+    RBC,
+    CRP,
+    fibrina, 
+    glucosio, 
+    PCT, 
+    LDH, 
+    INR, 
+    D\_dimer, 
+    percentuale di ossigeno, 
+    PaO2, 
+    SaO2, 
+    PaCO2, 
+    pH, 
+    malattie cardiovascolari,
+    cardiopatia ischemica,
+    fibirllazione atriale,
+    insufficienza respiratoria,
+    arresto cardiaco,
+    ictus,
+    alta pressione sanguigna,
+    diabete,
+    demenza,
+    BPCO,
+    cancro,
+    malattia renale cronica,
+    insufficienza respiratoria,
+    obesità,
+    posizione.
+\\\\
+Questi rappresentano i dati, oltre a tali colonne sono presenti una colonna che rappresenta un identificativo del paziente, una colonna col nome 
+del file contenente la radiografia dei polmoni e una colonna contenente la prognosi (vuota nel caso del test set).
+
+%\begin{tcolorbox}[tab2,tabularx={},title=My table,boxrule=0.5pt]
+%\end{tcolorbox}
+
+
+Ciò che si vuole ottenere, al fine di usare tali metadati insieme alle immagini per effettuare il training, è un insieme di dati che sia completamente pieno, ovvero presenti corrispondenze 
 per tutte le righe e colonne del dataset.
 Dunque si cerca di ridurre il dataset di partenza nel più grande sottinsieme che contenga tutte le corrispondenze.
 Tale omogeneità deve essere presente sia nel dataset di training che in quello di test. Oltre a ciò, alla fine, si cerceranno le collonne comuni 
@@ -140,7 +188,7 @@ Per iniziare si eliminano le colonne che non presentano alcun dato, o che presen
         PaCO2, 
         pH, 
         cardiopatia ischemica,
-        insufficienza respiratori,
+        insufficienza respiratoria,
         obesità, 
         positività all'ammssione, 
         temperatura corporea, 

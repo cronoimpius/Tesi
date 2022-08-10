@@ -134,10 +134,73 @@ Le trasfromazioni che sono state scelte, in base alla possibilità che la rete c
 valide, sono la rotazione verticale ed orizontale, specificando anche il range di angolo in cui effettuare tale rotazione.
 La scelta di queste trasformazioni è stata validata anche osservando le immagini prodotte e riflettendo sul fatto che fossero 
 sensate come input della rete.
-*immagini aumentate vs immagini normali*
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{augmented_ex.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 1}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{augmented_ex_1.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 2}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{augmented_ex_2.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 3}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{augmented_ex_3.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 4}
+    \end{subfigure}
+    \caption{Immagini a seguito dell'augmentation, con relativa label}
+    \label{Augmentation}
+\end{figure}
 \\\\
 È importante sottolineare che l'augmentation viene effettuata unicamente sul training set.
 \\\\
 Per verificare se la data augmentation ha avuto effetto si procede con dei training della rete.
 Tali training sono stati effettuati mantenendo gli stessi parametri precedentemente usati.
-*immagini training*
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.75\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{lr10-31_r.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 1}
+    \end{subfigure}
+    \begin{subfigure}{.75\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{lr10-32_r.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 2}
+    \end{subfigure}
+    \caption{Training effettuato con learning rate pari a $10^{-3}$ a seguito dell'augmentation}
+    \label{Training Augmentation}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.75\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{lr10-41_r.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 3}
+    \end{subfigure}
+    \begin{subfigure}{.75\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{lr10-42_r.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 4}
+    \end{subfigure}
+    \caption{Training effettuato con learning rate pari a $10^{-4}$ a seguito dell'augmentation}
+    \label{Training Augmentation}
+\end{figure}

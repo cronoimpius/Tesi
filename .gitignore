@@ -6,3 +6,8 @@
 *.toc
 *.lof
 *.gz
+*.csv
+*.bbl
+*.blg
+*.fdb*
+*.fls

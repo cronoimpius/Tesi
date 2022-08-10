@@ -16,7 +16,27 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{filecontents}
 \usepackage{csquotes}
-\usepackage[font=small,labelfont=bf]{caption} % caption belle alle figure
+\usepackage[font=small,labelfont=bf]{caption} % caption belle alle figure 
+%per fare le tabelle dei csv belle
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{csvsimple}
+\tcbuselibrary{skins}
+
+\newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
+
+\tcbset{tab1/.style={fonttitle=\bfseries\large,fontupper=\normalsize\sffamily,
+colback=yellow!10!white,colframe=red!75!black,colbacktitle=Salmon!40!white,
+coltitle=black,center title,freelance,frame code={
+\foreach \n in {north east,north west,south east,south west}
+{\path [fill=red!75!black] (interior.\n) circle (3mm); };},}}
+
+\tcbset{tab2/.style={enhanced,fonttitle=\bfseries,fontupper=\normalsize\sffamily,
+colback=yellow!10!white,colframe=red!50!black,colbacktitle=Salmon!40!white,
+coltitle=black,center title}}
 
 %Stile per l'indice
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
