@@ -161,13 +161,45 @@ le righe rappresentano i vari pazienti, mentre le colonne rappresentano vari dat
 \\\\
 Questi rappresentano i dati, oltre a tali colonne sono presenti una colonna che rappresenta un identificativo del paziente, una colonna col nome 
 del file contenente la radiografia dei polmoni e una colonna contenente la prognosi (vuota nel caso del test set).
+\\\\
+\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=Estratto del dataset di training,width=1.25\textwidth, center=\textwidth]
+    \centering
+    \begin{tabular}{l|l|c|c|c|c|c|c|l}
+        ImageFile & Hospital & Age & Sex & ...... & Temp\_C & DaysFever & Diabetes & Prognosis \\ \hline \hline
+        ... & ... & ... & ... & ... & ... & ... & ... & ... \\
+        P\_601.png & B & 68 & 0 &...& 38 & 3 & 0 & SEVERE \\
+        
+        P\_402.png & F & 74 & 1 &...& 36 & 3 & 0 & MILD \\
+        
+        P\_72.png & A & 72 & 1 &...& 36.1 & 3 & 0 & MILD  \\
+        
+        P\_608.png & B & 38 & 1 &...& 37.5 & 3 & 0 & MILD  \\
+        
+        P\_396.png & F & 63 & 1 &...& 36 & 3 & 0 & MILD \\
+        ... & ... & ... & ... & ... & ... & ... & ... & ... 
+    \end{tabular}     
+\end{tcolorbox}
+\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=Estratto del dataset di test,width=1.25\textwidth, center=\textwidth]
+    \centering
+    \begin{tabular}{l|l|c|c|c|c|c|c|l}
+        ImageFile & Hospital & Age & Sex & ...... &  Temp\_C & DaysFever & Diabetes & Prognosis \\ \hline \hline 
+        ... & ... & ... & ... & ... & ... & ... & ... & ... \\
+        P\_3\_428.png & F & 78 & 1 &... & 35.8 & 1 & 0 & nan \\ 
 
-%\begin{tcolorbox}[tab2,tabularx={},title=My table,boxrule=0.5pt]
-%\end{tcolorbox}
+        P\_3\_158.png & F & 65 & 1 &... & 36.6 & 3 & 0 & nan\\  
 
+        P\_3\_429.png & F & 45 & 0 &... & 38 & 4 & 0 & nan \\
 
+        P\_3\_299.png & F & 80 & 0 &... & 38.4 & 3 & 0 & nan \\
+
+        P\_3\_483.png & F & 63 & 0 &...& 36 & 1 & 1 & nan \\
+        ... & ... & ... & ... & ... & ... & ... & ... & ... 
+    \end{tabular}     
+\end{tcolorbox}
+$\\\\$
 Ciò che si vuole ottenere, al fine di usare tali metadati insieme alle immagini per effettuare il training, è un insieme di dati che sia completamente pieno, ovvero presenti corrispondenze 
 per tutte le righe e colonne del dataset.
+\\\\
 Dunque si cerca di ridurre il dataset di partenza nel più grande sottinsieme che contenga tutte le corrispondenze.
 Tale omogeneità deve essere presente sia nel dataset di training che in quello di test. Oltre a ciò, alla fine, si cerceranno le collonne comuni 
 ai due dataset, scartando le altre. In tal modo si possono unire i due dataset così da formarne uno solo.
@@ -230,4 +262,31 @@ Le colonne in comune tra i due dataset sono:
 $\\\\$
 In tal modo si è ottenuto un dataset che contiene 12 colonne significativa (sopra elencate) contenenti dati per 
 1418 pazienti.
+$\\\\$
+\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=\text{Estratto del dataset di training, in seguito alle modifiche},width=1.25\textwidth, center=\textwidth]
+    \centering
+    \begin{tabular}{l|c|c|c|c|c|c|c|c|l}
+        ImageFile & Hospital & Age & Sex & ...... & Cough & WBC & Ictus & Cancer & Prognosis \\ \hline \hline
+        ... & ... & ... & ... & ... & ... & ... & ... & ... & ...\\
+        P\_134.png & D & 53 & 1 &... & 0 & 6.92 & 0 & 0 & MILD  \\
+        P\_761.png & F & 42 & 1 &... & 0 & 4 & 0  & 0 & MILD  \\
+        P\_337.png & E & 56 & 0 &... & 0 & 3.37 & 0 & 0 & SEVERE  \\
+        P\_288.png & E & 71 & 0 &... & 0 & 6.96 & 1 & 0 & MILD  \\
+        P\_429.png & F & 86 & 1 & ...& 1 & 4.3 & 0 & 1 & SEVERE \\
+        ... & ... & ... & ... & ... & ... & ... & ... & ... & ...\\
+    \end{tabular}     
+\end{tcolorbox}
 
+\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=\text{Estratto del dataset di test, in seguito alle modifiche}, width=1.25\textwidth, center=\textwidth]
+    \centering
+    \begin{tabular}{l|c|c|c|c|c|c|c|c|l}
+        ImageFile & Hospital & Age & Sex & ...... & Cough & WBC & RBC & Glucose & Diabetes   \\ \hline \hline
+        ... & ... & ... & ... & ... & ... & ... & ... & ... & ...\\
+        P\_3\_455.png & F & 47 & 0 &...& 0 & 9.29 & 5.18 & 99  & 0  \\
+        P\_3\_342.png & F & 33 & 0 &... & 1  & 4.65 & 4.65 & 101  & 0   \\
+        P\_3\_96.png & F & 62 & 1 &... & 0  & 8.3 & 4.35 & 157 & 0   \\
+        P\_3\_6.png & F & 49 & 1 &... & 1  & 8.16 & 4.84 & 243 & 0   \\
+        P\_3\_22.png & F & 52 & 0 &... & 1  & 3.5 & 5.32 & 147  & 0  \\
+        ... & ... & ... & ... & ... & ... & ... & ... & ... & ...
+    \end{tabular}     
+\end{tcolorbox}

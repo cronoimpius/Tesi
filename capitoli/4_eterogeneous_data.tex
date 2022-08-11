@@ -38,7 +38,21 @@ Per tale motivo si è giunti ad un dataset formato dalle seguenti colonne:
 \end{itemize}
 Tali dati sono presenti per 946 pazienti del training set e 472 del test set, per cui abbiamo un dataset di 1218 pazienti.
 Questo dataset sarà poi suddiviso in training, validation e test set, per effettuare l'allenamento della rete e per verificare la capacità di effettuare previsioni.
-\\\\
+$\\\\$
+\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=\text{Estratto del dataset dato dall'unione dei due di partenza},width=1.5\textwidth, center=\textwidth]
+    \centering
+    \begin{tabular}{l|c|c|c|c|c|c|c|c|l}
+        ImageFile & Hospital & Age & ...... & Cough & WBC &  HeartFailure & Ictus & HighBloodPressure & Prognosis \\ \hline \hline
+        ... & ... & ... & ... & ... & ... & ... & ... & ... & ...\\
+        P\_281.png & E & 68 &...  & 0 & 7.33 & 0 & 0 & 1 &  MILD   \\
+        P\_544.png & F & 72 &...  & 0 & 9.6 &  0 & 0 & 1 &  SEVERE   \\
+        P\_657.png & C & 83 & ... & 1 & 9 &  0 & 0 & 1 &  SEVERE   \\
+        P\_1\_93.png & F & 66 & ... & 0 & 10 & 0 & 0 & 0 & SEVERE   \\
+        P\_73.png & A & 48 &...  & 1 & 9.13 & 0 & 0 & 0  & MILD  \\
+        ... & ... & ... & ... & ... & ... & ... & ... & ... & ...
+    \end{tabular}     
+\end{tcolorbox}
+$\\\\$
 Ora che si presenta il dataset completo, si procede col trasformare tutti i dati nello stesso formato, ovvero in valori binari \cite{ar}.
 Partendo dai dati categorici, si procede usando la codifica one-hot. Tale procedura prevede che le categorie relative al dato vengano 
 trasformate in una rappresentazione binaria, in cui ogni categoria è rappresentata da una serie di zeri ed un unico uno presente nella categoria
