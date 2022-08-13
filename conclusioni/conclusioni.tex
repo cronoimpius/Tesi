@@ -1,3 +1,45 @@
 \chapter*{Conclusioni}
 \chaptermark{Conclusioni}
 \addcontentsline{toc}{chapter}{Conclusioni}
+In questo progetto di tesi si è focalizzata l'attenzione sull'uso dei reti neurali convoluzionali e di percettrone multistrato (MLP) per analizzare ed effettuare 
+previsioni usando un dataset fornito.
+Il dataset si può suddividere nelle immagini, raffiguranti radiografie del busto, e nei metadati relativi alle immagini. Per comprendere come creare una rete neurale in grado di prendere in ingresso 
+sia le immagini che i metadati relativi, si è partito studiando i due casi in maniera separata.
+\\\\
+Lo studio delle immagini e di come la relativa rete le processa risulta più complesso, per tale motivo si è partiti con l'affrontare tale 
+problematica.
+In primo luogo si è compreso la composizione del dataset e si è osservato che le immagini avevano dimensioni varie e presentavano alcune differenze a livello 
+di luminosità dell'immagine. Per tali motivi sono stati effettuati alcuni accorgimenti per migliorare la qualità delle immagini e ridimensionarle.
+Tali passaggi sono :
+\begin{itemize}
+    \item Verificare se l'immagine presentava fosse stata posta in negativo,
+    \item Correggere la luminosità dell'immagine e equalizzare i colori usando opencv,
+    \item Ridimensionare l'immagine aggiungendo il padding per evitare di modificare l'aspect-ratio dell'immagine.
+\end{itemize}
+Alla fine di tali passaggi si è ottenuto un dataset migliore. Per procedere con il training della rete convoluzionale, si è dovuto prima 
+effettuare un altro passaggio riguardante al creazione di immagini in cui si vedono solamente i polmoni. Tale passaggio è composto da:
+\begin{itemize}
+    \item Creazione delle maschere mediante l'uso della U-Net,
+    \item Creazione delle bounding-box usando le maschere trovate,
+    \item Ridimensionamento ed eventuale padding finale dell'immagine.
+\end{itemize} 
+La rete usata come U-Net è EfficientNet e sono stati usati dei pesi preallenati per accellerare il processo e per ottenere maschere migliori.
+\\\\
+Una volta termimnato questo studio sullle immagini si è passato al training vero e proprio della rete convoluzionale.
+La rete usata è stata composta usando come base MobileNetV2. Si è deciso anche qui di usare dei pesi preallenati, ma in questo caso si è dovuto 
+effettuare un pasasggio di Fine tuning per adattare i pesi al dataset usato. A tale rete sono stati aggiunti layer per ridimensionare correttamente l'output ed ottenere 
+dei valori binari.
+Per allenare tali layer si è dovuto effettuare il Transfer Learning. 
+Alla fine si è proceduto con l'effettuare dei training di test e i risultati ottenuti sono stati analizzati.
+\\\\
+Per l'implementazione dell'MLP si è deciso di usare un insieme di layer che calcolano l'output partendo da un insieme di metadati presi dal dataset.
+Anche in tal caso sono stati effettuati accorgimenti sul dataset, in modo da avere un sottinsieme completo del dataset, poiché erano presenti dati mancanti.
+Oltre a ciò, essendo il dataset suddiviso in training e test set, si è dovuto scegliere un sottinsieme comune ai due dataset.
+\\\\
+Ottenuto il dataset finale si è proceduto col normalizzare le varie tipologie di dati presenti in dati binari, ad esempio trasformando dati categorici, con più di due categorie, in dati binari, oppure 
+trasformando dati interi in dati binari.
+\\\\
+A seguito della creazione dell'MLP si è proceduto, in fine, con la creazione di una rete unica, composta dalle precedenti in modo 
+che possa prendere in ingresso sia immagini che metadati e restituire un risultato più accurato. Sono stati, anche in questo caso, effettuati 
+dei training e valutati i risultati.
+\section{Sviluppi Futuri}
