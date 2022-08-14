@@ -45,20 +45,42 @@ Dando uno sguardo alla composizione del dataset si può notare come le immagini 
     \caption{Campione del dataset per evidenziare le differenze tra le immagini}
     \label{Campione}
 \end{figure}
-*nota immagini scure*
 $\\\\$
-Per tale motivo risulta utile eseguire un preprocessing delle immagini, in cui si effetuano vari passaggi:
+Oltre alla differenza nelle dimensioni delle varie immagini si possono notare diversità relative a luminosità, contrasto ed alcune sono in negativo.
+Per tali motivi risulta utile eseguire un preprocessing delle immagini, in cui si effetuano vari passaggi:
 \begin{itemize}
-    \item Riconoscere i polmoni e crearne una mascehera
-    \item Ricavare una bounding-box che contenga i polmoni
-    \item Ritagliare la bounding-box contenente i polmoni, in modo che abbiano tutte la stessa dimensione
+    \item Regolare contrasto, luminosità ed effettuare un check sulle immagini in negativo,
+    \item Riconoscere i polmoni e crearne una mascehera,
+    \item Ricavare una bounding-box che contenga i polmoni,
+    \item Ritagliare la bounding-box contenente i polmoni, in modo che abbiano tutte la stessa dimensione.
 \end{itemize}
 
 È importante sottolineare che nell'eseguire tali passaggi si necessita di evitare di distorcere l'immagine, per tale 
-motivo si faranno considerazioni sull'aspect ratio dell'immagine. 
+motivo si faranno considerazioni sull'aspect ratio dell'immagine.
 \\\\
-Tali passaggi serviranno per ottenere immagini omogenee, in grado di consentire alla rete di identificare i polmoni ed avranno 
-una dimensione pari a 224 x 224
+Per prima cosa si sfrutta la libreria OpenCV \cite{ocv} al fine di normalizzare il contrasto dell'immagine mediante la funzione convertScaleAbs() ed 
+equalizzare l'istogramma, mediante l'uso di CLAHE (Contrast Limited Adaptive Histogram Equalization) in modo anche da correggere la luminosità.
+convertScaleAbs() è una funzione che svolge varie operazioni in sequenza:
+\begin{itemize}
+    \item effettua un rescaling basato sul fattore passato come argomento, nel caso in questione 1 (non effettuiamo rescaling),
+    \item aggiunge un offset passato come secondo parametro, nel caso considerato tale offset è impostato a 0,
+    \item calcola il valore assoluto della somma ottenuta dal passaggio precedente.
+\end{itemize}
+L'uso del CLAHE è dovuto al fatto che immagini di buona qualità hanno pixel in tutte le regioni dell'immagine, per tale motivo si necessita di 
+allungare l'istogramma dell'immagine alle estremità. Tale operazione è detta equalizzazione dell'istogramma. In alcune immagini, come quelle più luminose, 
+i pixel sonon invece confinati in una sola estremità dell'istogramma. L'istogramma di un'immagine rappresenta la distribuzione dei colori all'interno dell'immagine.
+Quello che si vuole dunque ottenere è un istogramma più piatto possibile, ovvero far si che tutti i colori abbiano la stessa distribuzione nell'immagine.
+Tale operazione ha come conseguenza il miglioramento del contrasto dell'immagine, per questo risulta essere utile.
+\\\\
+Si è notato inoltre che alcune immagini del dataset risultavano essere in negativo, ovvero erano più luminose sullo sfondo e meno luminose al centro (dove si trovano i polmoni).
+Per affrontare tale problematica si è deciso di prendere un campione di pixel alle estremità dell'immagine e confrontarlo con uno preso al centro.
+Tale confronto viene effettuato calcolando una soglia, facendo la media dei colori dei pixel dell'immagine.
+Se il campione supera tale soglia indica che il campione è più luminoso. Poi si calcola la percentuale di bianco in entrambi i campioni. 
+Se la percentuale di bianco presente nel campione relativo agli angoli risulta essere maggiore di quella presente nel campione preso dal centro dell'immagine, allora 
+l'immagine è in negativo e per tale motivo si riporta l'immagine allo stato originale sottroendo  i valori dei pixel attuali ad un'immagine completamente nera.
+In tal modo si è riportata l'immagine "in positivo".
+\\\\
+Tali passaggi serviranno per ottenere immagini omogenee, in grado di consentire alla rete di identificare i polmoni.
 \section{U-Net}
 Al fine di effettuare il riconoscimento dei polmoni allinterno dell'immagine, si sfrutta una U-Net.
 Una U-Net è una rete convoluzionale sviluppata per eseguire la segmentazione dell'immagine. Il processo di segmentazione consiste nell'assegnare ad 
