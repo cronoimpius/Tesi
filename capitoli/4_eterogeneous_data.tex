@@ -1,6 +1,6 @@
-\chapter{Gestione dati eterogenei}
+\chapter{Design e training di una rete neurale con dati eterogenei in ingresso}
 \label{ch:MLP}
-\section{Gestione dei dati}
+\section{Preprocessing dataset}
 I risultati ottenuti con la CNN possono essere migliorati o resi più attendibili con l'utilizzo
 di altre tipologie di dati. Questi sono le informazioni relative al paziente al momento dell'arrivo in 
 ospedale.
@@ -39,17 +39,17 @@ Per tale motivo si è giunti ad un dataset formato dalle seguenti colonne:
 Tali dati sono presenti per 946 pazienti del training set e 472 del test set, per cui abbiamo un dataset di 1218 pazienti.
 Questo dataset sarà poi suddiviso in training, validation e test set, per effettuare l'allenamento della rete e per verificare la capacità di effettuare previsioni.
 $\\\\$
-\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=\text{Estratto del dataset dato dall'unione dei due di partenza},width=1.5\textwidth, center=\textwidth]
+\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=\text{Estratto del dataset dato dall'unione dei due di partenza},width=\textwidth, center=\textwidth]
     \centering
-    \begin{tabular}{l|c|c|c|c|c|c|c|c|l}
-        ImageFile & Hospital & Age & ...... & Cough & WBC &  HeartFailure & Ictus & HighBloodPressure & Prognosis \\ \hline \hline
-        ... & ... & ... & ... & ... & ... & ... & ... & ... & ...\\
-        P\_281.png & E & 68 &...  & 0 & 7.33 & 0 & 0 & 1 &  MILD   \\
-        P\_544.png & F & 72 &...  & 0 & 9.6 &  0 & 0 & 1 &  SEVERE   \\
-        P\_657.png & C & 83 & ... & 1 & 9 &  0 & 0 & 1 &  SEVERE   \\
-        P\_1\_93.png & F & 66 & ... & 0 & 10 & 0 & 0 & 0 & SEVERE   \\
-        P\_73.png & A & 48 &...  & 1 & 9.13 & 0 & 0 & 0  & MILD  \\
-        ... & ... & ... & ... & ... & ... & ... & ... & ... & ...
+    \begin{tabular}{l|c|c|c|c|c|c|c|l}
+        ImageFile & H. & Age & .... & Cough & WBC & Ic. & H.B.P. & Prognosis \\ \hline \hline
+        ... & ... & ... & ... & ... & ... & ... & ... & ...\\
+        P\_281.png & E & 68 &...  & 0 & 7.33  & 0 & 1 &  MILD   \\
+        P\_544.png & F & 72 &...  & 0 & 9.6  & 0 & 1 &  SEVERE   \\
+        P\_657.png & C & 83 & ... & 1 & 9 & 0 & 1 &  SEVERE   \\
+        P\_1\_93.png & F & 66 & ... & 0 & 10 & 0 & 0 & SEVERE   \\
+        P\_73.png & A & 48 & ...  & 1 & 9.13 & 0 & 0  & MILD  \\
+        ... & ... & ... & ... & ... & ... & ... & ... & ...
     \end{tabular}     
 \end{tcolorbox}
 $\\\\$
@@ -77,7 +77,7 @@ La trasformazione avviene mediante:
 \\\\
 I valori binari infine sono rimasti invariati, poichè esprimono il valore nel range desiderato.
 
-\section{Struttura MLP}
+\section{Struttura percettore multistrato}
 
 Avendo ora convertito i dati del dataset in modo da essere in [0,1], si può iniziare a costruire la rete che deve fare previsioni 
 prendendo come input tali dati. 

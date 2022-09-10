@@ -1,10 +1,10 @@
-\chapter{Dataset}
+\chapter{Dataset radiografie polmoni di pazienti affetti da COVID19 e metadati delle radiografie}
 \label{ch:Dataset}
 \section{Composizione}
 Il dataset usato per effettuare lo studio è stato preso da un hackaton \cite{ai} riguardante la creazione di una rete neurale in grado di apprendere 
 da immagini relative a radiografie di pazienti affetti da covid in modo da predirre la gravità della prognosi.
 \\\\
-La metodologia risolutivva usata è stata ispirata dal lavoro fatto da uno dei gruppi partecipanti all'hackaton, ovvero COSBI \cite{cch}.
+La metodologia risolutiva usata è stata ispirata dal lavoro fatto da uno dei gruppi partecipanti all'hackaton, ovvero COSBI \cite{cch}.
 \\\\
 Dunque il dataset usato è formato da immagini raffiguranti radiografie dei polmoni, le quali tuttavia non sono omogenee. Per tale motivo 
 si è dovuto effettuare un passaggio preliminare in modo da rendere le immagini tutte della stessa dimensione, ma non distorcendole.
@@ -13,7 +13,7 @@ Oltre alle immagini sono presenti anche un insieme di metadati riguardanti lo st
 Tali metadati presentano descrivono varie informazioni relative al paziente, per tale motivo sono rappresentate anche in modo diverso: esistono dati di tipo categorico, sia con più categorie che con
 due sole categoria, dati che possono essere considerati come booleani e dati interi, come ad esempio l'età.
 \clearpage
-\section{Immagini}
+\section{Immagini delle radiografie dei pazienti}
 Dando uno sguardo alla composizione del dataset si può notare come le immagini risultano avere dimensione diversa.
 
 \begin{figure}[h]
@@ -21,26 +21,30 @@ Dando uno sguardo alla composizione del dataset si può notare come le immagini 
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{P_1_10.png}  
-        %\caption{}
-        %\label{SUBFIGURE LABEL 1}
+        \caption{MILD}
+        %\label{MILD}
+        %MILD
     \end{subfigure}
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{P_2_27.png}  
-        %\caption{}
-        %\label{SUBFIGURE LABEL 2}
+        \caption{MILD}
+        %\label{MILD}
+        %MILD
     \end{subfigure}
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{P_2_68.png}  
-        %\caption{}
-        %\label{SUBFIGURE LABEL 3}
+        \caption{SEVERE}
+        %\label{SEVERE}
+        %SEVERE
     \end{subfigure}
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{P_163.png}  
-        %\caption{}
-        %\label{SUBFIGURE LABEL 4}
+        \caption{SEVERE}
+        %\label{SEVERE}
+        %SEVERE
     \end{subfigure}
     \caption{Campione del dataset per evidenziare le differenze tra le immagini}
     \label{Campione}
@@ -81,7 +85,7 @@ l'immagine è in negativo e per tale motivo si riporta l'immagine allo stato ori
 In tal modo si è riportata l'immagine "in positivo".
 \\\\
 Tali passaggi serviranno per ottenere immagini omogenee, in grado di consentire alla rete di identificare i polmoni.
-\section{U-Net}
+\section{Utilizzo di una rete convoluzionale per segmentazione delle immagini}
 Al fine di effettuare il riconoscimento dei polmoni allinterno dell'immagine, si sfrutta una U-Net.
 Una U-Net è una rete convoluzionale sviluppata per eseguire la segmentazione dell'immagine. Il processo di segmentazione consiste nell'assegnare ad 
 ogni gruppo di pixel selezionato una categoria. Ad esempio si potrebbe avere un insieme di pixel del'immagine che identificano il contorno dei polmoni.
@@ -105,7 +109,7 @@ La rete performa molto bene con immagini di dimensioni piccole, tuttavia si è p
 performa meglio con immagini, in input, di dimensione 256 x 256 rispetto a quelle di dimensione 224 x 224.
 Per tale motivo, a seguito della segmentazione dovrà essere effettuato un ridimensionamento dell'immagine.
 
-\section{Bounding-box}
+\section{Selezione delle sezioni di interesse nelle immagini}
 Ottenute così le maschere retive alle immagini, queste sono alla base della costruzione delle bounding-box.
 La bounding-box rappresenta il riquadro di dimensione minima, contenente i polmoni.
 Per trovare tale riquadro si usano i punti estremi delle maschere: si cercano il punto più alto, più basso, il più a destra e l'estremo a sinistra.
@@ -138,7 +142,7 @@ Alla fine di tale procedimento si sono ottenute delle immagini raffiguranti i po
     \caption{Effetti dei vari passaggi sulle immagini del dataset}
     \label{Transformation}
 \end{figure}
-\section{Metadati}
+\section{Metadati relativi alle radiografie dei pazienti}
 Per quanto riguarda i metadati la situazione è meno complessa, poichè gestita mediante file csv.
 Il dataset in questo caso è sempre diviso in training e test set, ma è composto da un insieme di righe e colonne:
 le righe rappresentano i vari pazienti, mentre le colonne rappresentano vari dati relativi al paziente.
@@ -184,10 +188,10 @@ le righe rappresentano i vari pazienti, mentre le colonne rappresentano vari dat
 Questi rappresentano i dati, oltre a tali colonne sono presenti una colonna che rappresenta un identificativo del paziente, una colonna col nome 
 del file contenente la radiografia dei polmoni e una colonna contenente la prognosi (vuota nel caso del test set).
 \\\\
-\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=Estratto del dataset di training,width=1.25\textwidth, center=\textwidth]
+\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=Estratto del dataset di training,width=\textwidth, center=\textwidth]
     \centering
     \begin{tabular}{l|l|c|c|c|c|c|c|l}
-        ImageFile & Hospital & Age & Sex & ...... & Temp\_C & DaysFever & Diabetes & Prognosis \\ \hline \hline
+        ImageFile & H. & Age & Sex & ...... & T.C. & D.F. & Diabetes & Prognosis \\ \hline \hline
         ... & ... & ... & ... & ... & ... & ... & ... & ... \\
         P\_601.png & B & 68 & 0 &...& 38 & 3 & 0 & SEVERE \\
         
@@ -201,10 +205,10 @@ del file contenente la radiografia dei polmoni e una colonna contenente la progn
         ... & ... & ... & ... & ... & ... & ... & ... & ... 
     \end{tabular}     
 \end{tcolorbox}
-\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=Estratto del dataset di test,width=1.25\textwidth, center=\textwidth]
+\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=Estratto del dataset di test,width=\textwidth, center=\textwidth]
     \centering
     \begin{tabular}{l|l|c|c|c|c|c|c|l}
-        ImageFile & Hospital & Age & Sex & ...... &  Temp\_C & DaysFever & Diabetes & Prognosis \\ \hline \hline 
+        ImageFile & H. & Age & Sex & ...... &  T.C. & D.F. & Diab. & Prognosis \\ \hline \hline 
         ... & ... & ... & ... & ... & ... & ... & ... & ... \\
         P\_3\_428.png & F & 78 & 1 &... & 35.8 & 1 & 0 & nan \\ 
 
@@ -285,10 +289,10 @@ $\\\\$
 In tal modo si è ottenuto un dataset che contiene 12 colonne significativa (sopra elencate) contenenti dati per 
 1418 pazienti.
 $\\\\$
-\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=\text{Estratto del dataset di training, in seguito alle modifiche},width=1.25\textwidth, center=\textwidth]
+\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=\text{Estratto del dataset di training, in seguito alle modifiche},width=\textwidth, center=\textwidth]
     \centering
     \begin{tabular}{l|c|c|c|c|c|c|c|c|l}
-        ImageFile & Hospital & Age & Sex & ...... & Cough & WBC & Ictus & Cancer & Prognosis \\ \hline \hline
+        ImageFile & H. & Age & Sex & ...... & C. & WBC & Ic. & Canc. & Prognosis \\ \hline \hline
         ... & ... & ... & ... & ... & ... & ... & ... & ... & ...\\
         P\_134.png & D & 53 & 1 &... & 0 & 6.92 & 0 & 0 & MILD  \\
         P\_761.png & F & 42 & 1 &... & 0 & 4 & 0  & 0 & MILD  \\
@@ -299,10 +303,10 @@ $\\\\$
     \end{tabular}     
 \end{tcolorbox}
 
-\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=\text{Estratto del dataset di test, in seguito alle modifiche}, width=1.25\textwidth, center=\textwidth]
+\begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=\text{Estratto del dataset di test, in seguito alle modifiche}, width=\textwidth, center=\textwidth]
     \centering
     \begin{tabular}{l|c|c|c|c|c|c|c|c|l}
-        ImageFile & Hospital & Age & Sex & ...... & Cough & WBC & RBC & Glucose & Diabetes   \\ \hline \hline
+        ImageFile & H. & Age & Sex & ...... & C. & WBC & RBC & G. & Diab.   \\ \hline \hline
         ... & ... & ... & ... & ... & ... & ... & ... & ... & ...\\
         P\_3\_455.png & F & 47 & 0 &...& 0 & 9.29 & 5.18 & 99  & 0  \\
         P\_3\_342.png & F & 33 & 0 &... & 1  & 4.65 & 4.65 & 101  & 0   \\
