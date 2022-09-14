@@ -1,4 +1,4 @@
-\chapter{Implementazione rete neurale convoluzionale e training con immagini}
+\chapter{Implementazione rete neurale convoluzionale, training con immagini e risultati ottenuti}
 \label{ch:CNN}
 \section{Creazione rete neurale}
 Lo sviluppo della rete neurale convoluzionale, per effettuare previsioni partendo dalle immagini, è basata sulla rete 
@@ -61,25 +61,28 @@ Ora la rete è pronta per una prima fase di training. In tale fase sono stati us
     \item Epoche 150
     \item Batch size: 30
 \end{itemize}
-$\\$
+\section{Risultati dei test effettuati per il transfer learning}
 Per quanto concerne il valore del learning rate sono si è deciso di effettuare prove sia con $10^{-3}$ che con 
 $10^{-4}$.
 I risultati ottenuti dal training sono espressi nei seguenti grafici.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=12cm]{./10-3_150.png}
-    \label{ 10^{-3} }
+    \includegraphics[width=10cm]{./10-3_150.png}
+    \label{ 10^{-3} tl}
     \caption{Test effettuato usando come learning rate $10^{-3}$}
 \end{figure}
-
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=12cm]{./10-4_150.png}
-    \label{10^{-4}}
+    \includegraphics[width=10cm]{./10-4_150.png}
+    \label{10^{-4} tl}
     \caption{Test effettuato usando come learning rate $10^{-4}$}
 \end{figure}
-\vspace{1000mm}
+\vspace{5000mm}
+$\\\\$
+Dai grafici si può notare come il training effettuato con learning rate pari a $10^{-3}$ risulta essere più preciso, 
+anche se non di molto. Possiamo inoltre notare come la training loss diminuisce suggerendo il corretto funzionamento della
+rete.
 
 \section{Fine Tuning}
 
@@ -98,6 +101,7 @@ I parametri relativi al training in questa fase sono:
     \item Epoche 30
     \item Batch size: 30
 \end{itemize}
+\section{Risultati dei test effettuati per il fine tuning}
 $\\$
 Di seguito sono riportati i risultati ottenuti a seguito del transfer learning e fine tuning, sempre considerando 
 i due valori scelti per il learning rate.
@@ -105,17 +109,21 @@ i due valori scelti per il learning rate.
 \begin{figure}[htp]
     \centering
     \includegraphics[width=10cm]{./10-3_150_2.png}
-    \label{ 10^{-3} }
+    \label{ 10^{-3} ft}
     \caption{Test effettuato usando come learning rate $10^{-3}$}
 \end{figure}
 
-\begin{figure}[htp]
+\begin{figure}[t]
     \centering
     \includegraphics[width=10cm]{./10-4_150_2.png}
-    \label{10^{-4}}
+    \label{10^{-4} ft}
     \caption{Test effettuato usando come learning rate $10^{-4}$}
 \end{figure}
 \vspace{1000mm}
+$\\\\$
+Anche dal grafico relativo al fine tuning si una validation accuracy maggiore usando un learning rate pari a
+$10^{-3}$. Importante è notare la linea verde che demarca l'inizio del fine tuning e la fine del transfer learning.
+
 \section{Overfit e Data Augmentation}
 Dai risultati ottenuti risulta evidente la presenza di overfitting nella rete.
 Tale problema si è potuto notare per via del fatto che, anche a seguito del fine tuning, la validation accuracy non tende 
@@ -125,7 +133,8 @@ L'overfit può essere causato dal fatto che la rete si abitui agli input del tra
 fatto che questi siano molto simili tra di loro e risponda in maniera casuale a nuovi dati. Per tale motivo si è scelto di usare la data augmentation come tecnica risolutiva.
 La data augmentation consiste nel prendere le immagini del dataset, effettuare delle modifiche ad esse (come rotazioni), per 
 creare una immagine nuova, in modo da introdurre diversità all'interno del dataset. 
-\\\\
+\clearpage
+$\\\\$
 Per implementare tale tecnica si è optato per l'uso del ImageDataGenerator(). L'adozione di tale funzionalità presente in 
 TensorFlow è dovuta al fatto che consente di creare immagini partendo dal dataset iniziale, applicando trasformazioni casualmente, scegliendo tra 
 quelle selezionate.
@@ -165,42 +174,49 @@ sensate come input della rete.
 \end{figure}
 \\\\
 È importante sottolineare che l'augmentation viene effettuata unicamente sul training set.
-\\\\
+$\\\\$
+\section{Risultati dei test effettuati per la data augmentation}
 Per verificare se la data augmentation ha avuto effetto si procede con dei training della rete.
 Tali training sono stati effettuati mantenendo gli stessi parametri precedentemente usati.
 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}{.75\textwidth}
+    \begin{subfigure}{.60\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{lr10-31_r.png}  
         %\caption{}
         %\label{SUBFIGURE LABEL 1}
     \end{subfigure}
-    \begin{subfigure}{.75\textwidth}
+    \begin{subfigure}{.60\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{lr10-32_r.png}  
         %\caption{}
         %\label{SUBFIGURE LABEL 2}
     \end{subfigure}
     \caption{Training effettuato con learning rate pari a $10^{-3}$ a seguito dell'augmentation}
-    \label{Training Augmentation}
+    \label{Training Augmentation 1}
 \end{figure}
-
-\begin{figure}[h]
+\begin{figure}[htp]
     \centering
-    \begin{subfigure}{.75\textwidth}
+    \begin{subfigure}{.60\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{lr10-41_r.png}  
         %\caption{}
         %\label{SUBFIGURE LABEL 3}
     \end{subfigure}
-    \begin{subfigure}{.75\textwidth}
+    \begin{subfigure}{.60\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{lr10-42_r.png}  
         %\caption{}
         %\label{SUBFIGURE LABEL 4}
     \end{subfigure}
     \caption{Training effettuato con learning rate pari a $10^{-4}$ a seguito dell'augmentation}
-    \label{Training Augmentation}
+    \label{Training Augmentation 2}
 \end{figure}
+$\\\\$
+$\\\\$
+Nei grafici precedenti si riporta sia la versione del solo transfer learning che del test comprendente anche
+il fine tuning. Nelle seconde figure, per tale motivo si mostra quando inizia il fine tuning (linea verde).
+Anche in questo caso la diminuizione della training loss suggerisce il corretto funzionamento nell'allenamento della rete.
+Per quanto concerne i risultati ottenuti sono stati riscontrati lievi miglioramenti relativi alla validation accuracy
+delle reti, sempre osservando migliori prestazioni da parte della rete con learning rate pari a $10^{-3}$.

@@ -1,26 +1,68 @@
 %% motivazione
 Il machine learning ha vari campi applicativi.
 Uno di questi è quello di riconoscere dei pattern in modo che tali algoritmi possano apprendere e fare predizioni su un insieme di dati.
-
-Un settore sul quale gli algoritmi di machine learning sono molto applicati è quello della medicina.
+\\\\
+Un settore nel quale gli algoritmi di machine learning sono molto applicati è quello della medicina.
 In questo documnento si tratterà di come usare gli algoritmi di machine learning per fare predizioni su un dataset che contiene dati relativi a pazienti affetti da Covid-19.
-
-Esistono vari modi per analizzare i dati e fare apprendere la rete neurale in modo che le predizioni da essa effettuate abbiano senso.
+\\\\
+Esistono vari metodologie per analizzare i dati e fare apprendere la rete neurale in modo che le predizioni da essa effettuate abbiano senso.
 Tali metodologie possono variare per via dei dati che compongono il dataset, ma anche dal tipo di previsioni che la rete deve effettuare.
-
+\\\\
 L'algoritmo usato consiste in una rete neurale artificiale.
 Tale rete è composta da vari neuroni, i quali hanno il compito di prendere dei dati in input, apprenderne le caratteristiche principali e sulla base di ciò effettuare le previsioni.
-
+\\\\
 I neuroni che si occupano dell'apprendimento sono organizzati in vari layer nascosti. Ogni layer è composto da uno o più neuroni che interagiscono tra di loro. 
-
+\\\\
 Come già accennato in base al tipo di dato da studiare si può prediligere una tipologia di rete ad un'altra.
 Nel caso di questa tesi si è scelto di usare una rete neurale convoluzionale (CNN-\emph{Convolutional Neural Network}) per apprendere dalle immagini e una MLP ( \emph{Multi-Layer Perceptron} ) per gestire i metedati relativi alle immagini.
-
+\\\\
 %% contributi tesi
-
+Il dataset usato nell'elaborato, per allenare le reti neurali, contiene immagini raffiguranti radiografie del torace 
+di pazienti affetti da Covid-19 e altri dati relativi al loro stato di salute all'arrivo in ospedale. Per tale motivo 
+si è cercato di suddividere le reti da creare in base agli input che prende.
+\\\\
+Il primo passo per implementare la CNN è comprendere meglio come il dataset delle immagini è composto, per tale motivo 
+si è effettuata un'analisi accurata di tali immagini.
+Da tale analisi è emerso che le immagini sono molto eterogenee e che necessitano di alcuni accorgimenti prima di poter essere 
+date in input alla rete. Questa serie di passi prende il nome di preprocessing delle immagini.
+Nel caso considerato tale preprocessing prevede: regolazione di alcune caratteristiche dell'immagine (contrasto, luminosità, ...),
+riconoscimento dei polmoni mediante una rete apposita (U-Net) e la creazione dell'immagine finale mediante l'uso di bounding box.
+\\\\
+Per quanto riguarda le ultime due fasi sono effettuate partendo dall'uso di una rete convoluzionale, che ha come scopo 
+quello di eseguire la segmentazione dell'immagine per trovare la posizione dei polmoni, dalla quale otteniamo delle maschere, ovvero 
+immagini in cui si nota il contorno del soggetto dell'immagine. Da tali maschere si ricava poi la bounding box, il più piccolo
+riquadro contenente il soggetto d'interesse.
+Grazie a questi due artefatti si ottene l'immagine finale, di qualità migliore rispetto all'originale.
+In tal modo allenare la rete convoluzionale che deve effettuare previsioni risulta più semplice poiché tali immagini, sono alla fine del
+processo appena descritto, ridimensionata ad una dimensione comune. 
+\\\\
+Ottenute le immagini si procede con l'allenare la rete neurale convoluzionale e, in base ai risultati ottenuti, si decide se applicare 
+tecniche per migliorare l'apprendimento della rete. Nel nostro caso sono state usate la Data Augmentation, il Transfer Learning e il Fine Tuning.
+\\\\
+La Data Augmentation è una tecnica usata per modificare immagini presenti nel dataset applicando alcune trasformazioni ad esse, in modo 
+che la rete non si abitui alle immagini e restituisca previsioni più accurate.
+\\\\
+Il Transfer Learning consiste nell'uso di una rete pre-allenata per affrontare problemi correlati a quelli per cui era stata allenata.
+In tal modo la rete, in seguito ad opportuni accorgimenti e nuovi allenamente, risulta esssere più precisa.
+Uno di tali accorgimenti consiste nel fine tuning che permette di allenare gli ultimi layer della rete, ovvero quelli relativi alla classificazione
+, in modo da essere performanti sul nuovo dataset.
+\\\\
+Per quanto riguarda la gestione dei metadati, si parte, anche in questo caso, con l'analizzare il dataset che ci viene fornito.
+A seguito di tale analisi si verifica che il dataset non è completo, ovvero presenta dati mancanti. Per tale motivo si decide di 
+trovare un sottinsieme del dataset contenente il maggior numero di dati, in modo che questo sia completo.
+A questo punto si procede con la creazione del percettrone multistrato, ovvero una piccola rete neurale composta da pochi layer con il compito 
+di gestire gli input e di classificare gli output nel modo corretto.
+Prima di passare i dati in ingresso al percettrone questi devono essere convertiti in un formato comune per via del fatto che, come si vedrà 
+più nel dettaglio, i dati scelti sono di varia natura.
+\\\\
+Terminata tale fase si è pronti per concatenare le reti create e gestire i dati mediante un'unica rete che gestisce sia le immagini che gli altri dati 
+relativi al paziente.
+\\\\
 %% organizzazione tesi
-
 Questo elaborato di tesi inizia col trattare la struttura relativa al dataset considerato ed usato per allenare le 
 reti neurali, descrivendo le varie tecniche usate per ovviare ai vari problemi che sono stati riscontrati durante il lavoro.
 Successivamente si procede col dettagliare le modalità con cui sono state implementate ed allenate le reti usate, fornendo le motivazioni
-di tali scelte ed i grafici per confrontare i risultati ottenuti. 
+di tali scelte ed i grafici per confrontare i risultati ottenuti.
+Si inizia col trattare la rete che gestisce le immagini come input (CNN), successivamente si descrive la tecnica usata per creare 
+un percettrone multistrato in base ai dati che gli vengono passati in input ed, infine, si combinano queste due reti al fine 
+di creare una rete più accurata nelle previsioni che prenda in input i dati e le immagini.  

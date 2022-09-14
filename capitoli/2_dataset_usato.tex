@@ -1,8 +1,8 @@
-\chapter{Dataset radiografie polmoni di pazienti affetti da COVID19 e metadati delle radiografie}
+\chapter{Dataset radiografie polmoni di pazienti affetti da Covid-19 e metadati delle radiografie}
 \label{ch:Dataset}
 \section{Composizione}
 Il dataset usato per effettuare lo studio è stato preso da un hackaton \cite{ai} riguardante la creazione di una rete neurale in grado di apprendere 
-da immagini relative a radiografie di pazienti affetti da covid in modo da predirre la gravità della prognosi.
+da immagini relative a radiografie di pazienti affetti da Covid in modo da predirre la gravità della prognosi.
 \\\\
 La metodologia risolutiva usata è stata ispirata dal lavoro fatto da uno dei gruppi partecipanti all'hackaton, ovvero COSBI \cite{cch}.
 \\\\
@@ -12,6 +12,7 @@ si è dovuto effettuare un passaggio preliminare in modo da rendere le immagini 
 Oltre alle immagini sono presenti anche un insieme di metadati riguardanti lo stato in cui il paziente è entrato all'ospedale e l'anamnesi dello stesso.
 Tali metadati presentano descrivono varie informazioni relative al paziente, per tale motivo sono rappresentate anche in modo diverso: esistono dati di tipo categorico, sia con più categorie che con
 due sole categoria, dati che possono essere considerati come booleani e dati interi, come ad esempio l'età.
+(tutte le colonne sono elencate a pagina \pageref{eterogeneo})
 \clearpage
 \section{Immagini delle radiografie dei pazienti}
 Dando uno sguardo alla composizione del dataset si può notare come le immagini risultano avere dimensione diversa.
@@ -86,7 +87,7 @@ In tal modo si è riportata l'immagine "in positivo".
 \\\\
 Tali passaggi serviranno per ottenere immagini omogenee, in grado di consentire alla rete di identificare i polmoni.
 \section{Utilizzo di una rete convoluzionale per segmentazione delle immagini}
-Al fine di effettuare il riconoscimento dei polmoni allinterno dell'immagine, si sfrutta una U-Net.
+Al fine di effettuare il riconoscimento dei polmoni all'interno dell'immagine, si sfrutta una U-Net.
 Una U-Net è una rete convoluzionale sviluppata per eseguire la segmentazione dell'immagine. Il processo di segmentazione consiste nell'assegnare ad 
 ogni gruppo di pixel selezionato una categoria. Ad esempio si potrebbe avere un insieme di pixel del'immagine che identificano il contorno dei polmoni.
 \\\\
@@ -146,7 +147,8 @@ Alla fine di tale procedimento si sono ottenute delle immagini raffiguranti i po
 Per quanto riguarda i metadati la situazione è meno complessa, poichè gestita mediante file csv.
 Il dataset in questo caso è sempre diviso in training e test set, ma è composto da un insieme di righe e colonne:
 le righe rappresentano i vari pazienti, mentre le colonne rappresentano vari dati relativi al paziente.
-\\\\Le colonne iniziali di tali dataset sono le stesse e sono: 
+\\\\
+\phantomsection \label{eterogeneo}Le colonne iniziali di tali dataset sono le stesse e sono: 
     ospedale,
     età,
     sesso, 

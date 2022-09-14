@@ -1,6 +1,6 @@
-\chapter{Design e training di una rete neurale con dati eterogenei in ingresso}
+\chapter{Design e training di una rete neurale con dati eterogenei in ingresso e risultati ottenuti}
 \label{ch:MLP}
-\section{Preprocessing dataset}
+\section{Selezione di un sottinsieme completo del dataset}
 I risultati ottenuti con la CNN possono essere migliorati o resi più attendibili con l'utilizzo
 di altre tipologie di dati. Questi sono le informazioni relative al paziente al momento dell'arrivo in 
 ospedale.
@@ -77,7 +77,7 @@ La trasformazione avviene mediante:
 \\\\
 I valori binari infine sono rimasti invariati, poichè esprimono il valore nel range desiderato.
 
-\section{Struttura percettore multistrato}
+\section{Struttura percettrone multistrato}
 
 Avendo ora convertito i dati del dataset in modo da essere in [0,1], si può iniziare a costruire la rete che deve fare previsioni 
 prendendo come input tali dati. 
@@ -109,20 +109,65 @@ dimensione della combinazione degli output delle due reti.
 \\\\
 Si può, infine, creare la rete che prende in input la combinazione degli input della rete, mentre l'output sarà determinato
 dal nuovo layer inserito.
-*immagine rete completa*
+\begin{figure}[hp]
+    \centering
+        \includegraphics[width=12cm]{combined_meglio.jpg}  
+        \caption{Rappresentazione della rete finale composta da CNN e MLP}
+        %\label{SUBFIGURE LABEL 3}
+\end{figure}
+$\\$
+Nella figura precedente sono riportate schematicamente la CNN (in rosso) e la MLP (in verde), le quali, una volta
+combinate, creano la rete finale. L'output è dato dunque dalla composizione degli output.
+I primi layer rappresentano la gestione degli input da parte delle rispettive reti, mentre i layer nascosti 
+servono per svolgere varie funzionalità al fine di arrivare nei layer di classificazione avendo i dati delle 
+dimensioni opportune. Infine vengono restituiti gli output che saranno combinati per produrre la previsione finale.
+\section{Risultati dei test effettuati per la rete composta}
 Ora si può dunque procedere con la compilazione della rete e con il training. I training sono stati effettuati usando i parametri usati 
 nel caso della rete convoluzionale. 
 
-\begin{figure}[b]
+\begin{figure}[htp]
     \centering
     \includegraphics[width=\textwidth]{10_3_clin_giusto.png}
-    \label{ 10^{-3} }
+    \label{ 10^{-3} c }
     \caption{Test effettuato usando come learning rate $10^{-3}$}
 \end{figure}
 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=\textwidth]{10_4_clin_giusto.png}
-    \label{10^{-4}}
+    \label{10^{-4} c}
     \caption{Test effettuato usando come learning rate $10^{-4}$}
 \end{figure}
+$\\\\$
+Dai precedenti grafici si nota il corretto funzionamento suggerito dall'andamento decrescente della training loss.
+Oltre a ciò è possibile notare un importante aumento della validatino accuracy rispetto a ciò che si era ottenuto nel caso 
+di training con sole immagini. Infine si può notare come il learning rate pari a $10^{-3}$ sia anche in questo caso 
+più performante.
+\section{Confronto tra le varie reti adoperate nel progetto di tesi}
+
+\begin{tcolorbox}[tab1,title=\text{Confronto dei risultati ottenuti con le varie reti usate}]
+    \centering
+    \begin{tabular}{l|c|c|c|l}
+        Nome & accuracy & epoche & l.r. & descrizione \\ \hline \hline
+        \makecell{CNN \\ t.l.}  &   55\%   &  150   & $10^{-3}$     & \makecell{rete neurale convoluzionale \\ transfer learning \\ con learning rate \\ pari a $10^{-3}$ (pagina \pageref{ 10^{-3} tl})} \\ \hline
+        \makecell{CNN \\ t.l.}  &   53\%   &  150   & $10^{-4}$     & \makecell{rete neurale convoluzionale \\ transfer learning \\ con learning rate \\ pari a $10^{-4}$ (pagina \pageref{10^{-4} tl})} \\ \hline
+        \makecell{CNN \\ f.t.}  &   60\%   &  150+30& $10^{-3}$     & \makecell{rete neurale convoluzionale \\ fine tuning \\ con learning rate \\ pari a $10^{-3}$ (pagina \pageref{ 10^{-3} ft})} \\ \hline
+        \makecell{CNN \\ f.t.}  &   55\%   &  150+30& $10^{-4}$     & \makecell{rete neurale convoluzionale \\ fine tuning \\ con learning rate \\ pari a $10^{-4}$ (pagina \pageref{10^{-4} ft})}\\ \hline
+        \makecell{CNN \\ d.a.}  &   63\%   &  150+500& $10^{-3}$     & \makecell{rete neurale convoluzionale \\ data augmentation \\ con learning rate \\ pari a $10^{-3}$ (pagina \pageref{Training Augmentation 1})}\\ \hline
+        \makecell{CNN \\ d.a.}  &   57\%   &  150+500& $10^{-4}$     & \makecell{rete neurale convoluzionale \\ data augmentation \\ con learning rate \\ pari a $10^{-4}$ (pagina \pageref{Training Augmentation 2})}\\ \hline
+        Composta  &   82\%     &   450  & $10^{-3}$     & \makecell{rete neurale convoluzionale \\ concatenato al percettrone \\con learning rate \\ pari a $10^{-3}$ (pagina \pageref{ 10^{-3} c })}\\ \hline
+        Composta  &   79\%     &   450  & $10^{-4}$     & \makecell{rete neurale convoluzionale \\ concatenato al percettrone \\con learning rate \\ pari a $10^{-3}$ (pagina \pageref{10^{-4} c})}\\ 
+    \end{tabular}     
+\end{tcolorbox}
+\newpage
+$\\\\$
+La tabella sopra riportata mostra un confronto tra le varie reti usate, le epoche dell'allenamento, il valore 
+del learning rate e la validation accuracy ottenuta.
+\\\\
+Per quanto concerne le CNN con fine tuning sono state considerate anche le epoche precedenti relative al transfer learning.
+In maniera analoga per la rete con data augmentation sono evidenziate le epoche relative al transfer learning e 
+quelle relative al fine tuning.
+\\\\ 
+Da tale tabella si evince come, nonostante le varie tecniche usate per migliorare la precisione della CNN, l'uso 
+di dati eterogenei comporta un netto miglioramento, dunque la combinazione di CNN e percettrone risulta essere 
+la scelta ottimale per ottenere risultati più precisi
