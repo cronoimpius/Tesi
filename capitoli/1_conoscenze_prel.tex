@@ -3,12 +3,12 @@
 \section{Cosa s'intende per rete neurale e come si allenano}
 Le reti neurali, spesso chiamate anche reti neurali artificiali o simulate, sono algoritmi con nomi e strutture 
 ispirate al cervello umano ed hanno lo scopo di ricreare il modo in cui i neuroni umani comunicano.
-Le reti artificiali sono, nella maggiorparte dei casi, sistemi adattivo, ovvero possono cambiare
+Le reti artificiali sono, nella maggior parte dei casi, sistemi adattivo, ovvero possono cambiare
 la propria struttura in base alle informazioni che circolano all'interno della rete.
 Una rete neurale non è altro che una funzione matematica. Una rete neurale solitamente è definita 
 da una serie di neuroni (cos'è un neurone \ref{neuroni}) connessi tra di loro.
 % strutturazione delle reti neurali
-Solitamente le reti artificiali sono composte da più livelli: un livello relativo alla gestione dell'input,
+Usualmente le reti artificiali sono composte da più livelli: un livello relativo alla gestione dell'input,
 uno o più livelli nascosti ed un livello per la gestione degli output.
 Ogni livello è composto da nodi o neuroni artificiali.
 La connessione tra ognuno di questi nodi avviene mediante l'uso di sogli e pesi. Se, ad esempio, 
@@ -17,22 +17,22 @@ da inviare dati al livello successivo della rete, altrimenti non vengono inviati
 \\\\
 Ogni neurone è composto da dati di input, pesi, una soglia (detta anche bias) e dai dati restituiti in output.
 una volta che le dimensioni dei dati in ingresso vengono determinati, si assegnano anche i pesi.
-I pesi sono molto importanti, poiché aiutano a determinare l'importanza di ogni variabile in ingresso 
+I pesi sono fondamentali, poiché aiutano a determinare l'importanza di ogni variabile in ingresso 
 al neurone: pesi più grandi indicano che la varabile ha maggior importanza nella determinazione dell'output,
 pesi minori indicano che la variabile è meno importante per la determinazione dell'output.
 \\\\
-Altro valore importante è quello relativo alla soglia, poiché se il valore determinato come output supera la soglia, 
+Altro valore di rilievo è quello relativo alla soglia, poiché se il valore determinato come output supera la soglia, 
 il nodo viene attivato. In tal modo vengono passati i dati al neurone successivo.
 Così l'output di un nodo diventa l'input del successivo.
 \\\\
 All'inizializzazione della rete, i pesi vengono scelti in maniera casuale, portando la rete 
 ad avere scarsi risultati. Allenare una rete significa passare da una rete poco performante ad 
 una con un'accuracy elevata. Ciò è reso possibile dal fatto che possiamo modificare la funzione 
-che gestisce la rete, facendo degli accorgimenti sui pesi.
+che gestisce la rete, effettuando degli accorgimenti sui pesi.
 \\\\
 Essendo la rete neurale una funzione, quando alleniamo la rete per avere prestazioni migliori,
 ciò che facciamo è minimizzare la funzione di perdita (loss function). Si decide di minimizzare tale 
-funzione perché, in seguito a vari esperimenti, è stato verificato che ottimizzare tale funzione 
+funzione perché è stato verificato che ottimizzare tale funzione 
 è più semplice. Esistono vari  algoritmi per ottimizzare funzioni, questi possono essere basati sul 
 gradiente o meno.
 \\\\
@@ -44,7 +44,7 @@ troppo grandi con il rischio di superare il minimo e conseguente divergenza dell
 Se, al contrario si usa un learning rate troppo piccolo i tempi per trovare il minimo potrebbero aumentare 
 ed il minimo a cui si converge potrebbe essere un minimo locale.
 
-\section{Cosa sono i neuroni nelle delle reti neurali}
+\section{Cosa sono i neuroni nelle reti neurali}
 \label{neuroni}
 Un neurone non è altro che una funzione matematica. Tale funzione ha un input, di dimensione 
 determinata, e restituisce un output. Sono, inoltre, presenti 
@@ -55,7 +55,7 @@ fase in cui si regolano la rete.
 \\\\
 La funzione che descrive un neurone può essere divisa in due parti: combinazione lineare di 
 input e pesi preceduta da una funzione non lineare. La funzione non linear più usata è ReLU (Rectified 
-Linear Unit).
+Linear Unit), ma non è l'unica esistente.
 \begin{equation*}
     ReLU(x)=max(x,0)
 \end{equation*}
@@ -119,8 +119,8 @@ e la realizzazione del percettrone.
 \section{Strumenti usati}
 Esistono vari framework per lo sviluppo di reti neurali, uno dei più usati è TensorFlow \cite{tsf}. 
 \\
-TensorFlow presenta modelli già creati e allenati, i cui pesi possono essere presi per sfruttare tale modello.
-Insieme all'uso di altre librerie come Keras l'implementazione di una rete neurale che gestisca i dati a disposizione 
+TensorFlow presenta modelli già creati e allenati, i cui pesi possono essere reperiti per effettuare test in manniera rapida.
+Insieme all'uso di altre librerie come Keras, l'implementazione di una rete neurale che gestisca i dati a disposizione 
 è molto semplificato.
 \\
 La rete di base usata per partire con l'analisi delle immagini è la MobileNetV2. Tale rete è una CNN che, prendendo come input delle 

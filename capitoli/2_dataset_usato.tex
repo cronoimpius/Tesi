@@ -9,8 +9,8 @@ La metodologia risolutiva usata è stata ispirata dal lavoro fatto da uno dei gr
 Dunque il dataset usato è formato da immagini raffiguranti radiografie dei polmoni, le quali tuttavia non sono omogenee. Per tale motivo 
 si è dovuto effettuare un passaggio preliminare in modo da rendere le immagini tutte della stessa dimensione, ma non distorcendole.
 \\\\
-Oltre alle immagini sono presenti anche un insieme di metadati riguardanti lo stato in cui il paziente è entrato all'ospedale e l'anamnesi dello stesso.
-Tali metadati presentano descrivono varie informazioni relative al paziente, per tale motivo sono rappresentate anche in modo diverso: esistono dati di tipo categorico, sia con più categorie che con
+Oltre alle immagini è presente anche un insieme di metadati riguardanti lo stato in cui il paziente è entrato all'ospedale e l'anamnesi dello stesso.
+Tali metadati descrivono varie informazioni relative al paziente e, per via di ciò, sono rappresentate anche in modo diverso: esistono dati di tipo categorico, sia con più categorie che con
 due sole categoria, dati che possono essere considerati come booleani e dati interi, come ad esempio l'età.
 (tutte le colonne sono elencate a pagina \pageref{eterogeneo})
 \clearpage
@@ -22,32 +22,32 @@ Dando uno sguardo alla composizione del dataset si può notare come le immagini 
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{P_1_10.png}  
-        \caption{MILD}
+        \caption{MILD - 0}
         %\label{MILD}
         %MILD
     \end{subfigure}
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{P_2_27.png}  
-        \caption{MILD}
+        \caption{MILD - 0}
         %\label{MILD}
         %MILD
     \end{subfigure}
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{P_2_68.png}  
-        \caption{SEVERE}
+        \caption{SEVERE - 1}
         %\label{SEVERE}
         %SEVERE
     \end{subfigure}
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{P_163.png}  
-        \caption{SEVERE}
+        \caption{SEVERE - 1}
         %\label{SEVERE}
         %SEVERE
     \end{subfigure}
-    \caption{Campione del dataset per evidenziare le differenze tra le immagini}
+    \caption{Campione del dataset per evidenziare le differenze tra le immagini, con relativa label}
     \label{Campione}
 \end{figure}
 $\\\\$
@@ -59,7 +59,7 @@ Per tali motivi risulta utile eseguire un preprocessing delle immagini, in cui s
     \item Ricavare una bounding-box che contenga i polmoni,
     \item Ritagliare la bounding-box contenente i polmoni, in modo che abbiano tutte la stessa dimensione.
 \end{itemize}
-
+$\\\\$
 È importante sottolineare che nell'eseguire tali passaggi si necessita di evitare di distorcere l'immagine, per tale 
 motivo si faranno considerazioni sull'aspect ratio dell'immagine.
 \\\\
@@ -143,10 +143,22 @@ Alla fine di tale procedimento si sono ottenute delle immagini raffiguranti i po
     \caption{Effetti dei vari passaggi sulle immagini del dataset}
     \label{Transformation}
 \end{figure}
+$\\\\$
+$\\\\$
+$\\\\$
+$\\\\$
+$\\\\$
+$\\\\$
+$\\\\$
+$\\\\$
+$\\\\$
+$\\\\$
+$\\\\$
+$\\\\$
 \section{Metadati relativi alle radiografie dei pazienti}
-Per quanto riguarda i metadati la situazione è meno complessa, poichè gestita mediante file csv.
+Per quanto riguarda i metadati la situazione è meno complessa, poiché gestita mediante file csv.
 Il dataset in questo caso è sempre diviso in training e test set, ma è composto da un insieme di righe e colonne:
-le righe rappresentano i vari pazienti, mentre le colonne rappresentano vari dati relativi al paziente.
+le righe rappresentano i vari pazienti, mentre le colonne rappresentano i dati relativi al paziente.
 \\\\
 \phantomsection \label{eterogeneo}Le colonne iniziali di tali dataset sono le stesse e sono: 
     ospedale,
@@ -171,7 +183,7 @@ le righe rappresentano i vari pazienti, mentre le colonne rappresentano vari dat
     SaO2, 
     PaCO2, 
     pH, 
-    malattie cardiovascolari,
+    \\malattie cardiovascolari,
     cardiopatia ischemica,
     fibirllazione atriale,
     insufficienza respiratoria,
@@ -187,7 +199,7 @@ le righe rappresentano i vari pazienti, mentre le colonne rappresentano vari dat
     obesità,
     posizione.
 \\\\
-Questi rappresentano i dati, oltre a tali colonne sono presenti una colonna che rappresenta un identificativo del paziente, una colonna col nome 
+Questi rappresentano i dati. Oltre a tali colonne sono presenti: una colonna che rappresenta un identificativo del paziente, una colonna col nome 
 del file contenente la radiografia dei polmoni e una colonna contenente la prognosi (vuota nel caso del test set).
 \\\\
 \begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=Estratto del dataset di training,width=\textwidth, center=\textwidth]
@@ -304,7 +316,7 @@ $\\\\$
         ... & ... & ... & ... & ... & ... & ... & ... & ... & ...\\
     \end{tabular}     
 \end{tcolorbox}
-
+$\\\\$
 \begin{tcolorbox}[tab2,tabularx={Y|Y|Y|Y|Y|Y|Y|Y|Y|Y|Y},title=\text{Estratto del dataset di test, in seguito alle modifiche}, width=\textwidth, center=\textwidth]
     \centering
     \begin{tabular}{l|c|c|c|c|c|c|c|c|l}

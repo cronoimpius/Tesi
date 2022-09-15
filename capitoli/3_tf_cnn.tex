@@ -43,7 +43,7 @@ Tali layers sono:
     \item un GlobalAveragePooling2D()
     \item due Dense() 
 \end{itemize}  
-
+$\\\\$
 Il primo layer serve per via del fatto che allo stato attuale la rete produce un output multidimensionale e, per ottenere previsioni formate da un singolo vettore 
 della dimensione prevista, usiamo tale layer, il quale genera previsioni basate sul blocco multidimensionale e facendone una media.
 \\\\
@@ -61,6 +61,7 @@ Ora la rete è pronta per una prima fase di training. In tale fase sono stati us
     \item Epoche 150
     \item Batch size: 30
 \end{itemize}
+\clearpage
 \section{Risultati dei test effettuati per il transfer learning}
 Per quanto concerne il valore del learning rate sono si è deciso di effettuare prove sia con $10^{-3}$ che con 
 $10^{-4}$.
@@ -72,7 +73,7 @@ I risultati ottenuti dal training sono espressi nei seguenti grafici.
     \label{ 10^{-3} tl}
     \caption{Test effettuato usando come learning rate $10^{-3}$}
 \end{figure}
-\begin{figure}[ht]
+\begin{figure}[h]
     \centering
     \includegraphics[width=10cm]{./10-4_150.png}
     \label{10^{-4} tl}
@@ -149,25 +150,25 @@ sensate come input della rete.
         \centering
         \includegraphics[width=1.25\linewidth]{augmented_ex.png}  
         %\caption{}
-        %\label{SUBFIGURE LABEL 1}
+        \caption{SEVERE}
     \end{subfigure}
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=1.25\linewidth]{augmented_ex_1.png}  
         %\caption{}
-        %\label{SUBFIGURE LABEL 2}
+        \caption{SEVERE}
     \end{subfigure}
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=1.25\linewidth]{augmented_ex_2.png}  
         %\caption{}
-        %\label{SUBFIGURE LABEL 3}
+        \caption{MILD}
     \end{subfigure}
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=1.25\linewidth]{augmented_ex_3.png}  
         %\caption{}
-        %\label{SUBFIGURE LABEL 4}
+        \caption{MILD}
     \end{subfigure}
     \caption{Immagini a seguito dell'augmentation, con relativa label}
     \label{Augmentation}

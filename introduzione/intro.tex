@@ -34,7 +34,7 @@ immagini in cui si nota il contorno del soggetto dell'immagine. Da tali maschere
 riquadro contenente il soggetto d'interesse.
 Grazie a questi due artefatti si ottene l'immagine finale, di qualità migliore rispetto all'originale.
 In tal modo allenare la rete convoluzionale che deve effettuare previsioni risulta più semplice poiché tali immagini, sono alla fine del
-processo appena descritto, ridimensionata ad una dimensione comune. 
+processo appena descritto, ridimensionata ad una dimensione e sono incentrate sui polmoni. 
 \\\\
 Ottenute le immagini si procede con l'allenare la rete neurale convoluzionale e, in base ai risultati ottenuti, si decide se applicare 
 tecniche per migliorare l'apprendimento della rete. Nel nostro caso sono state usate la Data Augmentation, il Transfer Learning e il Fine Tuning.
@@ -44,8 +44,8 @@ che la rete non si abitui alle immagini e restituisca previsioni più accurate.
 \\\\
 Il Transfer Learning consiste nell'uso di una rete pre-allenata per affrontare problemi correlati a quelli per cui era stata allenata.
 In tal modo la rete, in seguito ad opportuni accorgimenti e nuovi allenamente, risulta esssere più precisa.
-Uno di tali accorgimenti consiste nel fine tuning che permette di allenare gli ultimi layer della rete, ovvero quelli relativi alla classificazione
-, in modo da essere performanti sul nuovo dataset.
+Uno di tali accorgimenti consiste nel fine tuning che permette di allenare gli ultimi layer della rete, ovvero quelli relativi alla classificazione,
+in modo da essere performanti sul nuovo dataset.
 \\\\
 Per quanto riguarda la gestione dei metadati, si parte, anche in questo caso, con l'analizzare il dataset che ci viene fornito.
 A seguito di tale analisi si verifica che il dataset non è completo, ovvero presenta dati mancanti. Per tale motivo si decide di 
@@ -64,5 +64,5 @@ reti neurali, descrivendo le varie tecniche usate per ovviare ai vari problemi c
 Successivamente si procede col dettagliare le modalità con cui sono state implementate ed allenate le reti usate, fornendo le motivazioni
 di tali scelte ed i grafici per confrontare i risultati ottenuti.
 Si inizia col trattare la rete che gestisce le immagini come input (CNN), successivamente si descrive la tecnica usata per creare 
-un percettrone multistrato in base ai dati che gli vengono passati in input ed, infine, si combinano queste due reti al fine 
-di creare una rete più accurata nelle previsioni che prenda in input i dati e le immagini.  
+un percettrone multistrato in base ai dati che verranno passati in input ed, infine, sono state combinate queste due reti al fine 
+di crearne una più accurata nelle previsioni poiché prende in input sia i dati che le immagini.  
