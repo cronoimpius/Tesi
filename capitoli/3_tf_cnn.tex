@@ -1,4 +1,4 @@
-\chapter{Implementazione rete neurale convoluzionale, training con immagini e risultati ottenuti}
+\chapter{Risultati training con sole immagini}
 \label{ch:CNN}
 \section{Creazione rete neurale}
 Lo sviluppo della rete neurale convoluzionale, per effettuare previsioni partendo dalle immagini, è basata sulla rete 
@@ -125,10 +125,10 @@ $\\\\$
 Anche dal grafico relativo al fine tuning si una validation accuracy maggiore usando un learning rate pari a
 $10^{-3}$. Importante è notare la linea verde che demarca l'inizio del fine tuning e la fine del transfer learning.
 
-\section{Overfit e Data Augmentation}
+\section{Overfitting e Data Augmentation}
 Dai risultati ottenuti risulta evidente la presenza di overfitting nella rete.
-Tale problema si è potuto notare per via del fatto che, anche a seguito del fine tuning, la validation accuracy non tende 
-ad aumentare.
+Tale problema si è potuto notare per via del fatto che, anche a seguito del fine tuning, la validation accuracy tende 
+a diminuire.
 \\\\
 L'overfit può essere causato dal fatto che la rete si abitui agli input del training set, o al 
 fatto che questi siano molto simili tra di loro e risponda in maniera casuale a nuovi dati. Per tale motivo si è scelto di usare la data augmentation come tecnica risolutiva.
@@ -140,7 +140,7 @@ Per implementare tale tecnica si è optato per l'uso del ImageDataGenerator(). L
 TensorFlow è dovuta al fatto che consente di creare immagini partendo dal dataset iniziale, applicando trasformazioni casualmente, scegliendo tra 
 quelle selezionate.
 \\\\
-Le trasfromazioni che sono state scelte, in base alla possibilità che la rete consideri anche le nuove immagini come 
+Le trasformazioni che sono state scelte, in base alla possibilità che la rete consideri anche le nuove immagini come 
 valide, sono la rotazione verticale ed orizontale, specificando anche il range di angolo in cui effettuare tale rotazione.
 La scelta di queste trasformazioni è stata validata anche osservando le immagini prodotte e riflettendo sul fatto che fossero 
 sensate come input della rete.
@@ -221,3 +221,5 @@ il fine tuning. Nelle seconde figure, per tale motivo si mostra quando inizia il
 Anche in questo caso la diminuizione della training loss suggerisce il corretto funzionamento nell'allenamento della rete.
 Per quanto concerne i risultati ottenuti sono stati riscontrati lievi miglioramenti relativi alla validation accuracy
 delle reti, sempre osservando migliori prestazioni da parte della rete con learning rate pari a $10^{-3}$.
+Si può infine notare come l'uso della data augmentation ha avuto l'effetto sperato, osservando che la 
+validation accuracy dei grafici sopra mostrati non scende.

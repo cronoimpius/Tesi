@@ -1,4 +1,4 @@
-\chapter{Dataset radiografie polmoni di pazienti affetti da Covid-19 e metadati delle radiografie}
+\chapter{Descrizione dataset radiografie polmoni}
 \label{ch:Dataset}
 \section{Composizione}
 Il dataset usato per effettuare lo studio è stato preso da un hackaton \cite{ai} riguardante la creazione di una rete neurale in grado di apprendere 
@@ -86,7 +86,7 @@ l'immagine è in negativo e per tale motivo si riporta l'immagine allo stato ori
 In tal modo si è riportata l'immagine "in positivo".
 \\\\
 Tali passaggi serviranno per ottenere immagini omogenee, in grado di consentire alla rete di identificare i polmoni.
-\section{Utilizzo di una rete convoluzionale per segmentazione delle immagini}
+\section{Segmentazione immagini mediante U-Net}
 Al fine di effettuare il riconoscimento dei polmoni all'interno dell'immagine, si sfrutta una U-Net.
 Una U-Net è una rete convoluzionale sviluppata per eseguire la segmentazione dell'immagine. Il processo di segmentazione consiste nell'assegnare ad 
 ogni gruppo di pixel selezionato una categoria. Ad esempio si potrebbe avere un insieme di pixel del'immagine che identificano il contorno dei polmoni.

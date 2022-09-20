@@ -1,17 +1,17 @@
 \chapter{Conoscenze preliminari}
 \label{ch:Conoscenze Preliminari}
-\section{Cosa s'intende per rete neurale e come si allenano}
+\section{Rete neurale e come si allenano}
 Le reti neurali, spesso chiamate anche reti neurali artificiali o simulate, sono algoritmi con nomi e strutture 
 ispirate al cervello umano ed hanno lo scopo di ricreare il modo in cui i neuroni umani comunicano.
 Le reti artificiali sono, nella maggior parte dei casi, sistemi adattivo, ovvero possono cambiare
 la propria struttura in base alle informazioni che circolano all'interno della rete.
 Una rete neurale non è altro che una funzione matematica. Una rete neurale solitamente è definita 
-da una serie di neuroni (cos'è un neurone \ref{neuroni}) connessi tra di loro.
+da una serie di neuroni (vedi sezione \ref{neuroni}) connessi tra di loro.
 % strutturazione delle reti neurali
 Usualmente le reti artificiali sono composte da più livelli: un livello relativo alla gestione dell'input,
 uno o più livelli nascosti ed un livello per la gestione degli output.
 Ogni livello è composto da nodi o neuroni artificiali.
-La connessione tra ognuno di questi nodi avviene mediante l'uso di sogli e pesi. Se, ad esempio, 
+La connessione tra ognuno di questi nodi avviene mediante l'uso di soglie e pesi. Se, ad esempio, 
 l'output generato da un nodo è al di sopra di una soglia specificata, il nodo viene attivato in modo 
 da inviare dati al livello successivo della rete, altrimenti non vengono inviati dati.
 \\\\
@@ -20,22 +20,26 @@ una volta che le dimensioni dei dati in ingresso vengono determinati, si assegna
 I pesi sono fondamentali, poiché aiutano a determinare l'importanza di ogni variabile in ingresso 
 al neurone: pesi più grandi indicano che la varabile ha maggior importanza nella determinazione dell'output,
 pesi minori indicano che la variabile è meno importante per la determinazione dell'output.
-\\\\
+$\\\\$
 Altro valore di rilievo è quello relativo alla soglia, poiché se il valore determinato come output supera la soglia, 
 il nodo viene attivato. In tal modo vengono passati i dati al neurone successivo.
 Così l'output di un nodo diventa l'input del successivo.
 \\\\
 All'inizializzazione della rete, i pesi vengono scelti in maniera casuale, portando la rete 
 ad avere scarsi risultati. Allenare una rete significa passare da una rete poco performante ad 
-una con un'accuracy elevata. Ciò è reso possibile dal fatto che possiamo modificare la funzione 
+una con un accuratezza elevata. Ciò è reso possibile dal fatto che possiamo modificare la funzione 
 che gestisce la rete, effettuando degli accorgimenti sui pesi.
 \\\\
 Essendo la rete neurale una funzione, quando alleniamo la rete per avere prestazioni migliori,
-ciò che facciamo è minimizzare la funzione di perdita (loss function). Si decide di minimizzare tale 
-funzione perché è stato verificato che ottimizzare tale funzione 
-è più semplice. Esistono vari  algoritmi per ottimizzare funzioni, questi possono essere basati sul 
+ciò che facciamo è minimizzare la funzione di perdita (loss function).Esistono vari  algoritmi per ottimizzare funzioni, questi possono essere basati sul 
 gradiente o meno.
-\\\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{./neural_net.png}
+    \label{neural network}
+    \caption{Esempio di architettura di rete neurale}
+\end{figure}
+$\\\\$
 In virtù del fatto che l'obiettivo è trovare il minimo della funzione, vengono effettuati tentetivi
 ad ogni iterazione dell'allenamento. Un parametro fondamentale in questo processo è il \emph{learning rate}.
 Tale parametro indica la grandezza del salto che viene effettuato ad ogni iterazione per avvicinarsi al 
@@ -44,15 +48,21 @@ troppo grandi con il rischio di superare il minimo e conseguente divergenza dell
 Se, al contrario si usa un learning rate troppo piccolo i tempi per trovare il minimo potrebbero aumentare 
 ed il minimo a cui si converge potrebbe essere un minimo locale.
 
-\section{Cosa sono i neuroni nelle reti neurali}
+\subsection{Neuroni nelle reti neurali}
 \label{neuroni}
 Un neurone non è altro che una funzione matematica. Tale funzione ha un input, di dimensione 
 determinata, e restituisce un output. Sono, inoltre, presenti 
-dei coefficienti moltiplicativi fondamentali per determinare l'output : i pesi.
+dei coefficienti moltiplicativi fondamentali per determinare l'output chiamati pesi.
 \\\\
 I pesi diversificano i neuroni e vengono determinati durante l'allenamento della rete, ovvero la 
 fase in cui si regolano la rete.
-\\\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{./neuron.png}
+    \label{neuron}
+    \caption{Esempio di neurone}
+\end{figure}
+$\\\\$
 La funzione che descrive un neurone può essere divisa in due parti: combinazione lineare di 
 input e pesi preceduta da una funzione non lineare. La funzione non linear più usata è ReLU (Rectified 
 Linear Unit), ma non è l'unica esistente.
@@ -64,7 +74,7 @@ Tale funzione risulta essere pari a zero se $x$ è minore di zero e restituisce 
 \\\\
 Infine è utile ricordare che il valore restituito dal neurone è indicato col termine attivazione, 
 poiché determina se il neurone verrà attivato, passando i dati al neurone successivo nella catena, o meno.
-\section{A cosa serve la segmentazione delle immagini e cos'è una U-Net}
+\subsection{Segmentazione delle immagini e U-Net}
 Nel caso di classificazione delle immagini la rete neurale assegna un'etichetta (o classe) ad ogni 
 immagine in input. Se si vuole conoscere la forma di un oggetto presente nell'immagine, quali pixel appartengono
 a quale oggetto o cose simili, si deve assegnare una classe ad ogni pixel dell'immagine e non all'immagine intera.
@@ -94,7 +104,13 @@ stessa dimensione dell'immagine iniziale.
 \\\\
 Dalla maschera creata sarà poi più semplice effettuare ulteriori analisi e modifiche 
 sull'immagine iniziale.
-\pagebreak
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=12cm]{./u-net-architecture.png}
+    \label{neural network}
+    \caption{Esempio di architettura di una U-Net}
+\end{figure}
+\clearpage
 \section{Codifica one-hot per dati categorici}
 La codifica one-hot risulta essere molto utile quando si è in presenza di dati categorici. Tale tipologia di dati
 contengono etichette relative al dato invece che valori numerici: ogni etichetta solitamente rappresenta 
@@ -113,7 +129,24 @@ Il secondo passo prevede la conversione dei valori numerici in valori binari.
 Ciò che solitamente accade è che vengono scelti tanti bit quanti sono le categorie da rappresentare 
 e, successivamente, ogni categoria verrà rappresentata da una serie di bit posti come 0 ed un unico bit 
 posto ad 1.
-\\\\
+\begin{align*}\label{Esempio di funzione che esegue la codifica one-hot}
+    0 \longrightarrow \begin{pmatrix}
+        1\\
+        0\\
+        0
+    \end{pmatrix}\\
+    1 \longrightarrow \begin{pmatrix}
+        0\\
+        1\\
+        0
+    \end{pmatrix}\\
+    2 \longrightarrow \begin{pmatrix}
+        0\\
+        0\\
+        1
+    \end{pmatrix}
+\end{align*}
+$\\\\$
 Tale processo viene usato all'interno dell'elaborato di tesi al momento dello studio del dataset eterogeneo 
 e la realizzazione del percettrone.
 \section{Strumenti usati}

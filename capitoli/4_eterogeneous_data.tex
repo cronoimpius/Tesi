@@ -1,4 +1,4 @@
-\chapter{Design e training di una rete neurale con dati eterogenei in ingresso e risultati ottenuti}
+\chapter{Risultati training rete neurale con dati eterogenei}
 \label{ch:MLP}
 \section{Selezione di un sottinsieme completo del dataset}
 I risultati ottenuti con la CNN possono essere migliorati o resi più attendibili con l'utilizzo
@@ -13,7 +13,6 @@ Tali dati sono di vario tipo, quelli usati dal dataset considerato sono:
 \end{itemize}
 In questa fase è importante che tutti i dati siano presenti per ogni paziente. Per tale motivo si è dovuto 
 trovare un sottinsieme del dataset che presenti il maggior numero di dati. 
-\\\\
 Per fare ciò sono state eliminate le colonne che non avevano corrispondenze 
 tra i pazienti, ovvero erano vuote oppure presentavano dati solo per pochi pazienti.
 Al fine di ottenere un risultato migliore sono state eliminati anche i pazienti che non presentavano dati per 
@@ -23,7 +22,7 @@ Effettuata tale operazione, si è proceduto col creare un unico dataset ottenuto
 di training set e test set. Per fare ciò le colonne presenti tra i due devono essere le stesse.
 Per tale motivo si è giunti ad un dataset formato dalle seguenti colonne:
 \begin{itemize}
-    \item Ospedale, dato categorico che rappresenta l'ospedale che ha accolto il paziente tra A,B,C,D,E e F 
+    \item Ospedale, dato categorico che rappresenta l'ospedale che ha accolto il paziente tra A, B, C, D, E e F 
     \item Età, dato numerico
     \item Sesso, categorico binario, ovvero maschio o femmina
     \item Tosse, binario
@@ -77,7 +76,7 @@ La trasformazione avviene mediante:
 \\\\
 I valori binari infine sono rimasti invariati, poiché esprimono il valore nel range desiderato.
 
-\section{Struttura percettrone multistrato}
+\section{Struttura rete neurale}
 
 Avendo ora convertito i dati del dataset in modo da essere in [0,1], si può iniziare a costruire la rete che deve fare previsioni 
 prendendo come input tali dati. 
@@ -93,11 +92,9 @@ La rete dunque sarà formata da due layer:
 Il primo layer è colui che si occupa di ricevere anche gli input, per cui la dimensione degli input dovrà essere pari a 17.
 Il secondo layer, invece, è formato da soli 5 layer e si occupa di effettuare una prima classificazione.
 Entrambi i layer presentano come funzione di attivazione ReLu.
-\\\\
 Con tale rete, si riesce dunque ad effettuare il training relativo all'uso dei metadati.
-
-\section{Creazione rete composta}
-Per poter usare contemporaneamente le due reti neurali create, ovvero la CNN e la MLP, si necessita di 
+\\\\
+Per poter usare contemporaneamente le due reti neurali create, ovvero la CNN e il MLP, si necessita di 
 un ulteriore passaggio.
 Lo scopo di tale passaggio è avere una rete che accetti come input sia immagini che i metadati relativi, al fine
 di ottenere una previsione più affidabile, poiché basata sull'uso di più dati.
@@ -149,14 +146,14 @@ più performante.
     \centering
     \begin{tabular}{l|c|c|c|l}
         Nome & accuracy & epoche & l.r. & descrizione \\ \hline \hline
-        \makecell{CNN \\ t.l.}  &   55\%   &  150   & $10^{-3}$     & \makecell{rete neurale convoluzionale \\ transfer learning \\ con learning rate \\ pari a $10^{-3}$ (pagina \pageref{ 10^{-3} tl})} \\ \hline
-        \makecell{CNN \\ t.l.}  &   53\%   &  150   & $10^{-4}$     & \makecell{rete neurale convoluzionale \\ transfer learning \\ con learning rate \\ pari a $10^{-4}$ (pagina \pageref{10^{-4} tl})} \\ \hline
-        \makecell{CNN \\ f.t.}  &   60\%   &  150+30& $10^{-3}$     & \makecell{rete neurale convoluzionale \\ fine tuning \\ con learning rate \\ pari a $10^{-3}$ (pagina \pageref{ 10^{-3} ft})} \\ \hline
-        \makecell{CNN \\ f.t.}  &   55\%   &  150+30& $10^{-4}$     & \makecell{rete neurale convoluzionale \\ fine tuning \\ con learning rate \\ pari a $10^{-4}$ (pagina \pageref{10^{-4} ft})}\\ \hline
-        \makecell{CNN \\ d.a.}  &   63\%   &  150+500& $10^{-3}$     & \makecell{rete neurale convoluzionale \\ data augmentation \\ con learning rate \\ pari a $10^{-3}$ (pagina \pageref{Training Augmentation 1})}\\ \hline
-        \makecell{CNN \\ d.a.}  &   57\%   &  150+500& $10^{-4}$     & \makecell{rete neurale convoluzionale \\ data augmentation \\ con learning rate \\ pari a $10^{-4}$ (pagina \pageref{Training Augmentation 2})}\\ \hline
-        Composta  &   82\%     &   450  & $10^{-3}$     & \makecell{rete neurale convoluzionale \\ concatenato al percettrone \\con learning rate \\ pari a $10^{-3}$ (pagina \pageref{ 10^{-3} c })}\\ \hline
-        Composta  &   79\%     &   450  & $10^{-4}$     & \makecell{rete neurale convoluzionale \\ concatenato al percettrone \\con learning rate \\ pari a $10^{-3}$ (pagina \pageref{10^{-4} c})}\\ 
+        \makecell{CNN \\ t.l.\\(pagina \pageref{ 10^{-3} tl})}  &   55\%   &  150   & $10^{-3}$     & \makecell{rete neurale convoluzionale \\ transfer learning \\ con learning rate \\ pari a $10^{-3}$} \\ \hline
+        \makecell{CNN \\ t.l.\\(pagina \pageref{10^{-4} tl})}  &   53\%   &  150   & $10^{-4}$     & \makecell{rete neurale convoluzionale \\ transfer learning \\ con learning rate \\ pari a $10^{-4}$} \\ \hline
+        \makecell{CNN \\ f.t.\\(pagina \pageref{ 10^{-3} ft})}  &   60\%   &  150+30& $10^{-3}$     & \makecell{rete neurale convoluzionale \\ fine tuning \\ con learning rate \\ pari a $10^{-3}$} \\ \hline
+        \makecell{CNN \\ f.t.\\ (pagina \pageref{10^{-4} ft})}  &   55\%   &  150+30& $10^{-4}$     & \makecell{rete neurale convoluzionale \\ fine tuning \\ con learning rate \\ pari a $10^{-4}$}\\ \hline
+        \makecell{CNN \\ d.a.\\ (pagina \pageref{Training Augmentation 1})}  &   63\%   &  150+500& $10^{-3}$     & \makecell{rete neurale convoluzionale \\ data augmentation \\ con learning rate \\ pari a $10^{-3}$}\\ \hline
+        \makecell{CNN \\ d.a.\\ (pagina \pageref{Training Augmentation 2})}  &   57\%   &  150+500& $10^{-4}$     & \makecell{rete neurale convoluzionale \\ data augmentation \\ con learning rate \\ pari a $10^{-4}$}\\ \hline
+        \makecell{Composta \\ (pagina \pageref{ 10^{-3} c })}  &   82\%     &   450  & $10^{-3}$     & \makecell{rete neurale convoluzionale \\ concatenato al \\ multilayer perceptron \\con learning rate \\ pari a $10^{-3}$}\\ \hline
+        \makecell{Composta \\ (pagina \pageref{10^{-4} c})}  &   79\%     &   450  & $10^{-4}$     & \makecell{rete neurale convoluzionale \\ concatenato al \\ multilayer perceptron \\con learning rate \\ pari a $10^{-3}$}\\ 
     \end{tabular}     
 \end{tcolorbox}
 \newpage
