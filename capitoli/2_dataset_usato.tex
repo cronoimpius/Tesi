@@ -12,7 +12,7 @@ si è dovuto effettuare un passaggio preliminare in modo da rendere le immagini 
 Oltre alle immagini è presente anche un insieme di metadati riguardanti lo stato in cui il paziente è entrato all'ospedale e l'anamnesi dello stesso.
 Tali metadati descrivono varie informazioni relative al paziente e, per via di ciò, sono rappresentate anche in modo diverso: esistono dati di tipo categorico, sia con più categorie che con
 due sole categoria, dati che possono essere considerati come booleani e dati interi, come ad esempio l'età.
-(tutte le colonne sono elencate a pagina \pageref{eterogeneo})
+(vedi \pageref{eterogeneo} per l'elenco completo)
 \clearpage
 \section{Immagini delle radiografie dei pazienti}
 Dando uno sguardo alla composizione del dataset si può notare come le immagini risultano avere dimensione diversa.
@@ -50,7 +50,7 @@ Dando uno sguardo alla composizione del dataset si può notare come le immagini 
     \caption{Campione del dataset per evidenziare le differenze tra le immagini, con relativa label}
     \label{Campione}
 \end{figure}
-$\\\\$
+$\\$
 Oltre alla differenza nelle dimensioni delle varie immagini si possono notare diversità relative a luminosità, contrasto ed alcune sono in negativo.
 Per tali motivi risulta utile eseguire un preprocessing delle immagini, in cui si effetuano vari passaggi:
 \begin{itemize}
@@ -59,7 +59,7 @@ Per tali motivi risulta utile eseguire un preprocessing delle immagini, in cui s
     \item Ricavare una bounding-box che contenga i polmoni,
     \item Ritagliare la bounding-box contenente i polmoni, in modo che abbiano tutte la stessa dimensione.
 \end{itemize}
-$\\\\$
+$\\$
 È importante sottolineare che nell'eseguire tali passaggi si necessita di evitare di distorcere l'immagine, per tale 
 motivo si faranno considerazioni sull'aspect ratio dell'immagine.
 \\\\
@@ -118,7 +118,6 @@ Tali punti rappresentano le coordinate di una box, la quale conterrà per certo 
 \\\\
 Avendo ora le bounding box, l'ultima cosa da fare è ritagliare le dalle immagini originali le bounding-box e ridimensionarle a 224 x 224.
 È necessario in questi passaggi di ridimensionamento mantenere presente che l'aspect-ratio deve essere conservato, per cui si effettua nuovamente padding ove necessario.
-\\\\
 Alla fine di tale procedimento si sono ottenute delle immagini raffiguranti i polmoni e della dimensione desiderata.
 \begin{figure}[h]
     \centering
@@ -143,18 +142,6 @@ Alla fine di tale procedimento si sono ottenute delle immagini raffiguranti i po
     \caption{Effetti dei vari passaggi sulle immagini del dataset}
     \label{Transformation}
 \end{figure}
-$\\\\$
-$\\\\$
-$\\\\$
-$\\\\$
-$\\\\$
-$\\\\$
-$\\\\$
-$\\\\$
-$\\\\$
-$\\\\$
-$\\\\$
-$\\\\$
 \section{Metadati relativi alle radiografie dei pazienti}
 Per quanto riguarda i metadati la situazione è meno complessa, poiché gestita mediante file csv.
 Il dataset in questo caso è sempre diviso in training e test set, ma è composto da un insieme di righe e colonne:
@@ -280,7 +267,7 @@ Per iniziare si eliminano le colonne che non presentano alcun dato, o che presen
     tempertaure corporea, 
     CRP. 
 \end{itemize} 
-$\\\\$
+$\\$
 Eliminate le colonne in eccesso, si procede con l'eliminazione dei paziente che non presentano tutti i dati.
 A seguito di tale operazione le righe, ovvero i pazienti, che sono presenti nel dataset di train sono 946, mentre quelle del dataset di test
 472.
@@ -299,7 +286,6 @@ Le colonne in comune tra i due dataset sono:
     \item Cancro, 
     \item Malattia renale cronica
 \end{itemize}
-$\\\\$
 In tal modo si è ottenuto un dataset che contiene 12 colonne significativa (sopra elencate) contenenti dati per 
 1418 pazienti.
 $\\\\$

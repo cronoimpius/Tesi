@@ -43,7 +43,6 @@ Tali layers sono:
     \item un GlobalAveragePooling2D()
     \item due Dense() 
 \end{itemize}  
-$\\\\$
 Il primo layer serve per via del fatto che allo stato attuale la rete produce un output multidimensionale e, per ottenere previsioni formate da un singolo vettore 
 della dimensione prevista, usiamo tale layer, il quale genera previsioni basate sul blocco multidimensionale e facendone una media.
 \\\\
@@ -61,7 +60,6 @@ Ora la rete è pronta per una prima fase di training. In tale fase sono stati us
     \item Epoche 150
     \item Batch size: 30
 \end{itemize}
-\clearpage
 \section{Risultati dei test effettuati per il transfer learning}
 Per quanto concerne il valore del learning rate sono si è deciso di effettuare prove sia con $10^{-3}$ che con 
 $10^{-4}$.
@@ -134,8 +132,7 @@ L'overfit può essere causato dal fatto che la rete si abitui agli input del tra
 fatto che questi siano molto simili tra di loro e risponda in maniera casuale a nuovi dati. Per tale motivo si è scelto di usare la data augmentation come tecnica risolutiva.
 La data augmentation consiste nel prendere le immagini del dataset, effettuare delle modifiche ad esse (come rotazioni), per 
 creare una immagine nuova, in modo da introdurre diversità all'interno del dataset. 
-\clearpage
-$\\\\$
+\\\\
 Per implementare tale tecnica si è optato per l'uso del ImageDataGenerator(). L'adozione di tale funzionalità presente in 
 TensorFlow è dovuta al fatto che consente di creare immagini partendo dal dataset iniziale, applicando trasformazioni casualmente, scegliendo tra 
 quelle selezionate.
@@ -173,13 +170,10 @@ sensate come input della rete.
     \caption{Immagini a seguito dell'augmentation, con relativa label}
     \label{Augmentation}
 \end{figure}
-\\\\
 È importante sottolineare che l'augmentation viene effettuata unicamente sul training set.
-$\\\\$
 \section{Risultati dei test effettuati per la data augmentation}
 Per verificare se la data augmentation ha avuto effetto si procede con dei training della rete.
 Tali training sono stati effettuati mantenendo gli stessi parametri precedentemente usati.
-
 \begin{figure}[h]
     \centering
     \begin{subfigure}{.60\textwidth}
@@ -199,13 +193,13 @@ Tali training sono stati effettuati mantenendo gli stessi parametri precedenteme
 \end{figure}
 \begin{figure}[htp]
     \centering
-    \begin{subfigure}{.60\textwidth}
+    \begin{subfigure}{.65\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{lr10-41_r.png}  
         %\caption{}
         %\label{SUBFIGURE LABEL 3}
     \end{subfigure}
-    \begin{subfigure}{.60\textwidth}
+    \begin{subfigure}{.65\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{lr10-42_r.png}  
         %\caption{}

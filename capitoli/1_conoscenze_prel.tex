@@ -6,7 +6,7 @@ ispirate al cervello umano ed hanno lo scopo di ricreare il modo in cui i neuron
 Le reti artificiali sono, nella maggior parte dei casi, sistemi adattivo, ovvero possono cambiare
 la propria struttura in base alle informazioni che circolano all'interno della rete.
 Una rete neurale non è altro che una funzione matematica. Una rete neurale solitamente è definita 
-da una serie di neuroni (vedi sezione \ref{neuroni}) connessi tra di loro.
+da una serie di neuroni (vedi sezione \ref{Neuroni nelle reti neurali}) connessi tra di loro.
 % strutturazione delle reti neurali
 Usualmente le reti artificiali sono composte da più livelli: un livello relativo alla gestione dell'input,
 uno o più livelli nascosti ed un livello per la gestione degli output.
@@ -49,11 +49,10 @@ Se, al contrario si usa un learning rate troppo piccolo i tempi per trovare il m
 ed il minimo a cui si converge potrebbe essere un minimo locale.
 
 \subsection{Neuroni nelle reti neurali}
-\label{neuroni}
+\label{Neuroni nelle reti neurali}
 Un neurone non è altro che una funzione matematica. Tale funzione ha un input, di dimensione 
 determinata, e restituisce un output. Sono, inoltre, presenti 
 dei coefficienti moltiplicativi fondamentali per determinare l'output chiamati pesi.
-\\\\
 I pesi diversificano i neuroni e vengono determinati durante l'allenamento della rete, ovvero la 
 fase in cui si regolano la rete.
 \begin{figure}[h]
@@ -64,17 +63,56 @@ fase in cui si regolano la rete.
 \end{figure}
 $\\\\$
 La funzione che descrive un neurone può essere divisa in due parti: combinazione lineare di 
-input e pesi preceduta da una funzione non lineare. La funzione non linear più usata è ReLU (Rectified 
-Linear Unit), ma non è l'unica esistente.
+input e pesi preceduta da una funzione non lineare. La funzione non lineare più usata è ReLU (Rectified 
+Linear Unit). Tale funzione risulta essere pari a zero se $x$ è minore di zero e restituisce $x$ se tale valore 
+è maggiore di zero. Oltre a ReLU esistono altre funzioni, tra cui: Sigmoid, Softmax, entrambe usata
+anche nel progetto di tesi, SELU e GELU. 
+Di seguito viene riportata l'espressione matematica descrivente la funzione ReLU.
 \begin{equation*}
     ReLU(x)=max(x,0)
 \end{equation*}
-Tale funzione risulta essere pari a zero se $x$ è minore di zero e restituisce $x$ se tale valore 
-è maggiore di zero.
-\\\\
+$\\\\$
 Infine è utile ricordare che il valore restituito dal neurone è indicato col termine attivazione, 
 poiché determina se il neurone verrà attivato, passando i dati al neurone successivo nella catena, o meno.
+\subsection{Tipologie di Layer}
+\label{tipologie}
+Esistono vari tipi di layer usati nella creazione delle reti neurali. I tipi più comuni di layer sono quattro:
+Fully connected, Convolutional, Deconvutional e Recurrent.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=6cm]{./dense.png}
+    \label{dense}
+    \caption{Esempio di dense layer}
+\end{figure}
+$\\$
+Nel caso considerato si è deciso di usare, in particolare, layer fully connected e convolutional.
+I layer fully connected sono caratterizzati dalla presenza di connessioni tra i neuroni di un layer e
+i tutti i neuroni del layer successivo. Tale tipologia di layer si trova in varie reti neurali, tra cui le 
+reti convoluzionali. Spesso tali layer sono chiamati anche Dense layer.
+I layer convoluzionali sono i layer principali all'interno delle reti convoluzionali, a cui danno il nome.
+Sono spesso usati per ricavare caratteristiche nelle immagini grazie all'uso di filtri per analizzare l'immagine stessa
+prendendo pochi pixel alla volta e restituendo in output una mappa delle caratteristiche.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=7cm]{./conv1.png}
+    \label{conv}
+    \caption{Esempio di convolutional layer}
+\end{figure}
+$\\\\$
+È importante citare anche un'altra tipologia di layer sfruttata all'interno del progetto. Questo è chiamato
+Global Average Pooling. Lo scopo di tali layer è rimpiazzare i dense layer mediante un'operazione di raggruppamento.
+L'idea di base è creare mappe delle caratteristiche per ogni categoria di cui si deve effettuare la 
+classificazione. Al posto di aggiungere dei dense layer all'inizio di tale mappa, si esegue una media 
+di ogni mappa e il vettore risultante viene passato in un layer softmax in modo da ottenere come risultato 
+un tensore di dimensione uno (ossia una sequenza di dati).
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{./Global_av.png}
+    \label{gap}
+    \caption{Esempio di Global Average Pooling layer}
+\end{figure}
 \subsection{Segmentazione delle immagini e U-Net}
+\label{Segmentazione delle immagini e U-Net}
 Nel caso di classificazione delle immagini la rete neurale assegna un'etichetta (o classe) ad ogni 
 immagine in input. Se si vuole conoscere la forma di un oggetto presente nell'immagine, quali pixel appartengono
 a quale oggetto o cose simili, si deve assegnare una classe ad ogni pixel dell'immagine e non all'immagine intera.
@@ -107,11 +145,15 @@ sull'immagine iniziale.
 \begin{figure}[h]
     \centering
     \includegraphics[width=12cm]{./u-net-architecture.png}
-    \label{neural network}
+    \label{U-Net}
     \caption{Esempio di architettura di una U-Net}
 \end{figure}
-\clearpage
+$\\\\$
+$\\\\$
+$\\\\$
+$\\\\$
 \section{Codifica one-hot per dati categorici}
+\label{Codifica one-hot per dati categorici}
 La codifica one-hot risulta essere molto utile quando si è in presenza di dati categorici. Tale tipologia di dati
 contengono etichette relative al dato invece che valori numerici: ogni etichetta solitamente rappresenta 
 categorie diverse.
@@ -128,7 +170,7 @@ alcuni casi essere sufficiente per convertire i dati.
 Il secondo passo prevede la conversione dei valori numerici in valori binari.
 Ciò che solitamente accade è che vengono scelti tanti bit quanti sono le categorie da rappresentare 
 e, successivamente, ogni categoria verrà rappresentata da una serie di bit posti come 0 ed un unico bit 
-posto ad 1.
+posto ad 1. Di seguito si riporta un esempio di una codifica one-hot sulle categorie utilizzate.
 \begin{align*}\label{Esempio di funzione che esegue la codifica one-hot}
     0 \longrightarrow \begin{pmatrix}
         1\\
@@ -148,8 +190,9 @@ posto ad 1.
 \end{align*}
 $\\\\$
 Tale processo viene usato all'interno dell'elaborato di tesi al momento dello studio del dataset eterogeneo 
-e la realizzazione del percettrone.
+e la realizzazione del multilayer perceptron.
 \section{Strumenti usati}
+\label{Strumenti usati}
 Esistono vari framework per lo sviluppo di reti neurali, uno dei più usati è TensorFlow \cite{tsf}. 
 \\
 TensorFlow presenta modelli già creati e allenati, i cui pesi possono essere reperiti per effettuare test in manniera rapida.
@@ -162,5 +205,5 @@ A tale rete, tuttavia, sono state apportate delle modifiche per via delle dimens
 che si vuole ottenere come previsione.
 \\
 Oltre a questa tipologia di rete si è sfruttata anche una U-Net, al fine di omogeneizzare tutte le immagini che vengono date come input della MobileNetV2.
-La U-Net usata è EfficientNet, con dei pesi preallenati per riconoscere immagini simili a quelle presenti nel dataset di riferimento.
+La U-Net usata è EfficientNet, con dei pesi preallenati \cite{unw} per riconoscere immagini simili a quelle presenti nel dataset di riferimento.
 

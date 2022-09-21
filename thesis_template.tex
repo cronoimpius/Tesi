@@ -13,10 +13,13 @@
 \usepackage[nottoc]{tocbibind}
 \usepackage{subcaption}
 \usepackage[backend=bibtex,style=ieee,sorting=none]{biblatex}
+% per mostrare le sottosezioni e numerarle
+\usepackage{tocvsec2}
 \usepackage[hidelinks]{hyperref}
 \usepackage{filecontents}
 \usepackage{csquotes}
 \usepackage[font=small,labelfont=bf]{caption} % caption belle alle figure 
+
 %per fare le tabelle dei csv belle
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{tcolorbox}
@@ -57,7 +60,7 @@ coltitle=black,center title}}
 % Bibliografia
 \bibliography{./bibliografia/bibliografia} % put your bibliography here
 
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{3}
 \raggedbottom
 
 \graphicspath{{./immagini/}}

@@ -118,10 +118,10 @@ combinate, creano la rete finale. L'output è dato dunque dalla composizione deg
 I primi layer rappresentano la gestione degli input da parte delle rispettive reti, mentre i layer nascosti 
 servono per svolgere varie funzionalità al fine di arrivare nei layer di classificazione avendo i dati delle 
 dimensioni opportune. Infine vengono restituiti gli output che saranno combinati per produrre la previsione finale.
+\clearpage
 \section{Risultati dei test effettuati per la rete composta}
 Ora si può dunque procedere con la compilazione della rete e con il training. I training sono stati effettuati usando i parametri usati 
-nel caso della rete convoluzionale. 
-
+nel caso della rete convoluzionale.
 \begin{figure}[htp]
     \centering
     \includegraphics[width=\textwidth]{10_3_clin_giusto.png}
@@ -135,6 +135,10 @@ nel caso della rete convoluzionale.
     \label{10^{-4} c}
     \caption{Test effettuato usando come learning rate $10^{-4}$}
 \end{figure}
+$\\\\$
+$\\\\$
+$\\\\$
+$\\\\$
 $\\\\$
 Dai precedenti grafici si nota il corretto funzionamento suggerito dall'andamento decrescente della training loss.
 Oltre a ciò è possibile notare un importante aumento della validatino accuracy rispetto a ciò che si era ottenuto nel caso 
@@ -166,5 +170,5 @@ In maniera analoga per la rete con data augmentation sono evidenziate le epoche 
 quelle relative al fine tuning.
 \\\\ 
 Da tale tabella si evince come, nonostante le varie tecniche usate per migliorare la precisione della CNN, l'uso 
-di dati eterogenei comporta un netto miglioramento, dunque la combinazione di CNN e percettrone risulta essere 
-la scelta ottimale per ottenere risultati più precisi
+di dati eterogenei comporta un netto miglioramento, dunque la combinazione di CNN e multilayer perceptron risulta essere 
+la scelta ottimale per ottenere risultati più precisi.
