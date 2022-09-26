@@ -5,3 +5,11 @@
 *.log
 *.toc
 *.lof
+*.gz
+*.csv
+*.bbl
+*.blg
+*.fdb*
+*.fls
+thesis_template.pdf
+~*

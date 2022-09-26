@@ -1,0 +1,24 @@
+\chapter*{Conclusioni}
+\chaptermark{Conclusioni}
+\addcontentsline{toc}{chapter}{Conclusioni}
+In questo progetto di tesi si è focalizzata l'attenzione sull'uso dei reti neurali convoluzionali e di multilayer perceptron per analizzare ed effettuare 
+previsioni usando un dataset fornito.
+Il dataset si può suddividere nelle immagini, raffiguranti radiografie del torace, e nei metadati relativi alle immagini.
+\\\\
+In primo luogo si è compreso la composizione del dataset, si è osservato che le immagini avevano dimensioni varie e presentavano alcune differenze a livello 
+di luminosità dell'immagine. Per tali motivi sono stati effettuati alcuni accorgimenti per migliorare la qualità delle immagini e ridimensionarle.
+\\\\
+In tal modo si è migliorata la qualità del dataset. Per procedere con il training della rete convoluzionale, si è dovuto prima creare immagini in cui si vedono solamente i polmoni.
+Tale passaggio sfrutta la U-Net per individuare la collocazione dei polmoni nell'immagine.
+\\\\
+Una volta terminato questo studio sullle immagini si è passato al training vero e proprio della rete convoluzionale.
+Per migliorare le prestazioni della rete sono stati applicate le tecniche di Fine Tuning e Transfer Learning.
+Alla fine si è proceduto con l'effettuare dei training di test e i risultati ottenuti sono stati analizzati.
+\\\\
+Per l'implementazione dell'MLP si è deciso di usare dei layer che calcolano l'output partendo da un insieme di metadati presi dal dataset.
+Anche in tal caso sono stati effettuati accorgimenti sul dataset, in modo da avere un suo sottinsieme completo, poiché erano presenti dati mancanti.
+\\\\
+In fine è stata creata un unica rete, composta dalle precedenti in modo che possa prendere in ingresso sia immagini che metadati e restituire un risultato più accurato.
+\\\\
+Una modifica interessante del lavoro effettuato è rendere il modello utilizzabile su dataset che presentano dati mancanti.
+In alternativa si potrebbero comparare le prestazioni ottenute con reti differenti.

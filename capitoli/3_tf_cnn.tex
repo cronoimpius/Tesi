@@ -1,0 +1,219 @@
+\chapter{Risultati training con sole immagini}
+\label{ch:CNN}
+\section{Creazione rete neurale}
+Lo sviluppo della rete neurale convoluzionale, per effettuare previsioni partendo dalle immagini, è basata sulla rete 
+MobileNetV2. L'uso di tale rete come base consente di usare dei pesi preallenati in modo da rendere il processo di training sul dataset più efficiente.
+\\\\
+Tuttavia tale processo necessita di alcune fasi aggiuntive per fare in modo che la rete riesca a prendere i dati della dimensione esatta 
+e restituire delle previsioni nell'insieme desiderato.
+\\\\
+Tali operazioni sono:
+\begin{itemize}
+    \item Inserire la dimensione delle immagini nel layer di input
+    \item Effettuare fine tuning e transfer learning per poter usare i pesi preallenati 
+    \item Inserire dei layer finali per ottenere degli output significativi
+\end{itemize}
+
+La dimensione scelta delle immagini è (224x224), dunque la rete prende in ingresso degli array di dimensione 224x224x3 (dove quest'ultimo indica l'uso dei colori RGB).
+Per tale motivo il layer di input deve accettare tale dimensione.
+\\\\
+I pesi preallenati che si sono scelti sono pesi allenati su ImageNet. ImageNet è un dataset di immagini suddivise in 1000 classi. Il dataset su cui si deve svolgere il training, tuttavia, possiede 
+unicamente una classe, per via del fatto che abbiamo trasformato il valore della prognosi da una string ad un valore binario. 
+Per cui l'immagine può appartenere o meno a tale classe.
+\\\\
+Al fine di poter usare tali pesi per effettuare il training, si necessita dunque di ulteriori passaggi: 
+\begin{itemize}
+    \item Transfer Learning
+    \item Fine tuning
+\end{itemize}
+
+\section{Transfer Learning}
+
+Il transfer learning consente di sfruttare la rete già allenata a risolvere problemi diversi, ma comunque correlati con quello di interesse.
+Nel caso considerato tale tecnica permette di usare una rete allenata per prevedere l'appartenenza di una immagine ad una delle 1000 classi di ImageNet
+per creare una rete in grado di classificare le immagini del dataset in una unica classe.
+\\\\
+Per sfruttare la rete allenata, congeliamo lo stato dei layer di classificazione, al fine di non alterarli, e settiamo la rete come non allenabile.
+In tal modo si è ottenuto un nuovo modello basato sulla MobileNetV2.
+\\\\
+Ora si presenta un problema relativo alla classificazione. Per ovviare al fatto che tale operazione sarà fatta per una sola classe, si necessita dell'inserimento di altri layer alla fine del modello precedentemente ottenuto.
+\\\\
+Tali layers sono:
+\begin{itemize}
+    \item un GlobalAveragePooling2D()
+    \item due Dense() 
+\end{itemize}  
+Il primo layer serve per via del fatto che allo stato attuale la rete produce un output multidimensionale e, per ottenere previsioni formate da un singolo vettore 
+della dimensione prevista, usiamo tale layer, il quale genera previsioni basate sul blocco multidimensionale e facendone una media.
+\\\\
+Il primo Dense layer viene usato per generare l'output prodotto dalle immagini dei polmoni. Tale layer è formato da 100 neuroni ed ha come funzione di attivazione ReLu.
+\\\\
+Il secondo Dense layer svolge il lavoro di classificazione vero e proprio. Per via del fatto che si è scelto di usare una label binaria, ovvero classifichiamo su un'unica classe, tale 
+layer è composto da un solo neurone, ed ha come funzione di attivazione Sigmoid.
+\\\\
+Una volta creati i layers, per completare la fase di transfer learning, si deve compilare il modello finale, ottenuto aggiungendo i nuovi layers.
+\\\\
+Ora la rete è pronta per una prima fase di training. In tale fase sono stati usati i seguenti parametri per il training:
+\begin{itemize}
+    \item Loss function: Adam
+    \item Metrica: accuracy
+    \item Epoche 150
+    \item Batch size: 30
+\end{itemize}
+\section{Risultati dei test effettuati per il transfer learning}
+Per quanto concerne il valore del learning rate sono si è deciso di effettuare prove sia con $10^{-3}$ che con 
+$10^{-4}$.
+I risultati ottenuti dal training sono espressi nei seguenti grafici.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{./10-3_150.png}
+    \label{ 10^{-3} tl}
+    \caption{Test effettuato usando come learning rate $10^{-3}$}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{./10-4_150.png}
+    \label{10^{-4} tl}
+    \caption{Test effettuato usando come learning rate $10^{-4}$}
+\end{figure}
+\vspace{5000mm}
+$\\\\$
+Dai grafici si può notare come il training effettuato con learning rate pari a $10^{-3}$ risulta essere più preciso, 
+anche se non di molto. Possiamo inoltre notare come la training loss diminuisce suggerendo il corretto funzionamento della
+rete.
+
+\section{Fine Tuning}
+
+Per procedere con la fase di fine tuning, si deve rendere nuovamente allenabile il modello creato, 
+in modo tale che i pesi possano essere allenati considerando i nuovi layers.
+Così facendo si permette ai pesi di regolarsi sul dataset d'interesse, partendo da quello su cui sono stati inizialmente allenati.
+\\\\
+Essendo gli ultimi layers di una rete inutili in termini di classificazione, possiamo decidere di 
+congelarli, ovvero non considerarli durante il training, in modo da risparmiare risorse.
+Effettuato tale passaggio si può procedere con la compilazione del modello ottenuto e procedere con il training.
+\\\\
+I parametri relativi al training in questa fase sono:
+\begin{itemize}
+    \item Loss function: Adam
+    \item Metrica: accuracy
+    \item Epoche 30
+    \item Batch size: 30
+\end{itemize}
+\section{Risultati dei test effettuati per il fine tuning}
+$\\$
+Di seguito sono riportati i risultati ottenuti a seguito del transfer learning e fine tuning, sempre considerando 
+i due valori scelti per il learning rate.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=10cm]{./10-3_150_2.png}
+    \label{ 10^{-3} ft}
+    \caption{Test effettuato usando come learning rate $10^{-3}$}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=10cm]{./10-4_150_2.png}
+    \label{10^{-4} ft}
+    \caption{Test effettuato usando come learning rate $10^{-4}$}
+\end{figure}
+\vspace{1000mm}
+$\\\\$
+Anche dal grafico relativo al fine tuning si una validation accuracy maggiore usando un learning rate pari a
+$10^{-3}$. Importante è notare la linea verde che demarca l'inizio del fine tuning e la fine del transfer learning.
+
+\section{Overfitting e Data Augmentation}
+Dai risultati ottenuti risulta evidente la presenza di overfitting nella rete.
+Tale problema si è potuto notare per via del fatto che, anche a seguito del fine tuning, la validation accuracy tende 
+a diminuire.
+\\\\
+L'overfit può essere causato dal fatto che la rete si abitui agli input del training set, o al 
+fatto che questi siano molto simili tra di loro e risponda in maniera casuale a nuovi dati. Per tale motivo si è scelto di usare la data augmentation come tecnica risolutiva.
+La data augmentation consiste nel prendere le immagini del dataset, effettuare delle modifiche ad esse (come rotazioni), per 
+creare una immagine nuova, in modo da introdurre diversità all'interno del dataset. 
+\\\\
+Per implementare tale tecnica si è optato per l'uso del ImageDataGenerator(). L'adozione di tale funzionalità presente in 
+TensorFlow è dovuta al fatto che consente di creare immagini partendo dal dataset iniziale, applicando trasformazioni casualmente, scegliendo tra 
+quelle selezionate.
+\\\\
+Le trasformazioni che sono state scelte, in base alla possibilità che la rete consideri anche le nuove immagini come 
+valide, sono la rotazione verticale ed orizontale, specificando anche il range di angolo in cui effettuare tale rotazione.
+La scelta di queste trasformazioni è stata validata anche osservando le immagini prodotte e riflettendo sul fatto che fossero 
+sensate come input della rete.
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=1.25\linewidth]{augmented_ex.png}  
+        %\caption{}
+        \caption{SEVERE}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=1.25\linewidth]{augmented_ex_1.png}  
+        %\caption{}
+        \caption{SEVERE}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=1.25\linewidth]{augmented_ex_2.png}  
+        %\caption{}
+        \caption{MILD}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=1.25\linewidth]{augmented_ex_3.png}  
+        %\caption{}
+        \caption{MILD}
+    \end{subfigure}
+    \caption{Immagini a seguito dell'augmentation, con relativa label}
+    \label{Augmentation}
+\end{figure}
+È importante sottolineare che l'augmentation viene effettuata unicamente sul training set.
+\section{Risultati dei test effettuati per la data augmentation}
+Per verificare se la data augmentation ha avuto effetto si procede con dei training della rete.
+Tali training sono stati effettuati mantenendo gli stessi parametri precedentemente usati.
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.60\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{lr10-31_r.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 1}
+    \end{subfigure}
+    \begin{subfigure}{.60\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{lr10-32_r.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 2}
+    \end{subfigure}
+    \caption{Training effettuato con learning rate pari a $10^{-3}$ a seguito dell'augmentation}
+    \label{Training Augmentation 1}
+\end{figure}
+\begin{figure}[htp]
+    \centering
+    \begin{subfigure}{.65\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{lr10-41_r.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 3}
+    \end{subfigure}
+    \begin{subfigure}{.65\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{lr10-42_r.png}  
+        %\caption{}
+        %\label{SUBFIGURE LABEL 4}
+    \end{subfigure}
+    \caption{Training effettuato con learning rate pari a $10^{-4}$ a seguito dell'augmentation}
+    \label{Training Augmentation 2}
+\end{figure}
+$\\\\$
+$\\\\$
+Nei grafici precedenti si riporta sia la versione del solo transfer learning che del test comprendente anche
+il fine tuning. Nelle seconde figure, per tale motivo si mostra quando inizia il fine tuning (linea verde).
+Anche in questo caso la diminuizione della training loss suggerisce il corretto funzionamento nell'allenamento della rete.
+Per quanto concerne i risultati ottenuti sono stati riscontrati lievi miglioramenti relativi alla validation accuracy
+delle reti, sempre osservando migliori prestazioni da parte della rete con learning rate pari a $10^{-3}$.
+Si può infine notare come l'uso della data augmentation ha avuto l'effetto sperato, osservando che la 
+validation accuracy dei grafici sopra mostrati non scende.
